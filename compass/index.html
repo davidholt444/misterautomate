@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Compass | Mister Automate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compass is a focused life management system designed for clear execution, built on intentional constraints and automated structure." />
+  <style>
+    :root {
+      --ink: #0f1a1c;
+      --muted: #4a5a5e;
+      --paper: #f7f4ef;
+      --stone: #e5ded2;
+      --copper: #b86b3f;
+      --sage: #2f4f4b;
+      --sky: #dce8e4;
+      --shadow: 0 18px 50px rgba(15, 26, 28, 0.12);
+      --radius-lg: 28px;
+      --radius-sm: 14px;
+      --max: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(160deg, #f4efe7 0%, #e2ebe6 55%, #f7f4ef 100%);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(184, 107, 63, 0.18), transparent 70%);
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    body::before {
+      top: -180px;
+      right: -140px;
+    }
+
+    body::after {
+      bottom: -200px;
+      left: -160px;
+      background: radial-gradient(circle at 60% 40%, rgba(47, 79, 75, 0.16), transparent 70%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 32px 24px 110px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 10px 0 36px;
+    }
+
+    .brand {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav a {
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      border-color: var(--copper);
+      color: var(--ink);
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+      display: grid;
+      gap: 16px;
+      animation: fadeUp 0.9s ease-out both;
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: clamp(2.6rem, 4vw, 3.6rem);
+      margin: 0;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .hero .lead {
+      color: var(--ink);
+      font-size: 1.15rem;
+    }
+
+    .section {
+      margin-top: 58px;
+      display: grid;
+      gap: 18px;
+      animation: fadeUp 0.9s ease-out both;
+    }
+
+    .section h2 {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+      margin: 0;
+    }
+
+    .section h3 {
+      margin: 12px 0 0;
+      font-size: 1.1rem;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .surface {
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      border: 1px solid rgba(15, 26, 28, 0.08);
+      box-shadow: 0 10px 24px rgba(15, 26, 28, 0.08);
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .list li {
+      margin: 8px 0;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .callout {
+      margin-top: 60px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(47, 79, 75, 0.95), rgba(15, 26, 28, 0.95));
+      color: #ffffff;
+      padding: 40px;
+      display: grid;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .callout p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button.primary {
+      background: #ffffff;
+      color: var(--ink);
+      box-shadow: 0 12px 26px rgba(15, 26, 28, 0.18);
+    }
+
+    .button.secondary {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .fade-delay-1 { animation-delay: 0.1s; }
+    .fade-delay-2 { animation-delay: 0.2s; }
+    .fade-delay-3 { animation-delay: 0.3s; }
+    .fade-delay-4 { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        padding: 32px;
+      }
+
+      .callout {
+        padding: 28px;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="../">Mister Automate</a>
+      <nav class="nav">
+        <a href="../">Home</a>
+        <a href="https://compass.misterautomate.com">Compass app</a>
+        <a href="https://www.linkedin.com/in/david-h-27397413a/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="fade-delay-1">Compass</p>
+        <h1 class="fade-delay-2">A focused life management system designed for clear execution</h1>
+        <p class="lead fade-delay-3">Compass is a single, opinionated system for managing tasks, projects, goals, and priorities. It is designed to reduce decision fatigue by encoding a clear method of working directly into the software.</p>
+        <p class="fade-delay-4">Instead of offering endless configuration, Compass uses intentional constraints, automatic structure, and guided workflows to keep attention focused on execution.</p>
+        <p>Compass is a working example of the Mister Automate philosophy: <strong>custom software, infused with AI, that understands workflows well enough to automate friction naturally.</strong></p>
+      </section>
+
+      <section class="section fade-delay-1">
+        <h2>Built around a method, not a menu</h2>
+        <div class="stack surface">
+          <p>Most productivity software prioritizes flexibility. Compass prioritizes clarity.</p>
+          <p>The system is built around a specific method of working, with defaults that guide behavior rather than asking the user to decide everything upfront. Wherever intent or structure can be inferred, Compass does so automatically.</p>
+          <p>The result is software that participates in the workflow instead of merely recording it.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-2">
+        <h2>Subtraction as a design principle</h2>
+        <div class="stack surface">
+          <p>Compass is designed through subtraction.</p>
+          <p>When multiple ways exist to accomplish the same outcome, the system is intentionally shaped toward a single, clear path. This reduces ambiguity, speeds up decisions, and keeps cognitive load low.</p>
+          <p>Subtraction is not about limiting capability. It is about removing unnecessary choice so effort is spent on the work itself.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-3">
+        <h2>How Compass organizes work</h2>
+        <div class="stack surface">
+          <h3>Structure that emerges automatically</h3>
+          <p>Compass minimizes upfront categorization.</p>
+          <p>A task becomes a project automatically when a subtask is added. The user does not need to decide in advance whether something is a task or a project, structure emerges from behavior.</p>
+          <p>Projects are kept out of the main execution view by default, while subtasks remain visible so work continues uninterrupted.</p>
+          <p>When the final subtask of a project is completed, the project resurfaces intentionally, prompting a clear decision to either mark it complete or continue planning. This prevents projects from silently disappearing unfinished.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-4">
+        <h2>The Home view - a decision surface</h2>
+        <div class="stack surface">
+          <p>The Home view in Compass is not a list of everything.</p>
+          <p>It is a curated decision surface designed to show only what is relevant right now. Items that are not actionable or not yet relevant stay out of the way until they matter.</p>
+          <p>Work is ordered deliberately, not chronologically or arbitrarily.</p>
+          <h3>Home view ordering</h3>
+          <ol class="list">
+            <li><strong>Scheduled items</strong> Tasks explicitly scheduled for the current day appear first.</li>
+            <li><strong>Waiting items</strong> Follow-ups and items where progress depends on someone else are surfaced next, ensuring responsibility is not forgotten.</li>
+            <li><strong>Priority-ranked tasks</strong> All remaining actionable work is ordered by priority.</li>
+            <li><strong>Delayed items</strong> Tasks intentionally pushed out appear last, clearly deprioritized but still visible.</li>
+          </ol>
+          <p>This separation keeps urgency, responsibility, and importance from competing with each other.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-1">
+        <h2>Priority in Compass - how work is actually ranked</h2>
+        <div class="stack surface">
+          <h3>Priority is explicit, not implied</h3>
+          <p>In Compass, priority is not inferred from due dates or urgency alone. It is an intentional signal created by the user and then trusted by the system.</p>
+          <h3>How priority is set</h3>
+          <p>Each task can be scored across multiple priority dimensions using a simple 0-10 scale.</p>
+          <p>The interaction is intentionally fast:</p>
+          <ul class="list">
+            <li>open the priority control,</li>
+            <li>score each dimension,</li>
+            <li>move on.</li>
+          </ul>
+          <p>The goal is not perfect analysis, but clear relative judgment. Compass combines these scores into a single priority value that the system uses consistently.</p>
+          <h3>How priority is used</h3>
+          <p>Priority only applies after time-based and responsibility-based items are accounted for.</p>
+          <ul class="list">
+            <li>Scheduled work answers when something matters.</li>
+            <li>Waiting work answers who progress depends on.</li>
+            <li>Priority answers what matters most once timing and responsibility are clear.</li>
+          </ul>
+          <p>This ensures priority is meaningful and stable, rather than constantly overridden by dates or noise.</p>
+          <h3>The result</h3>
+          <ul class="list">
+            <li>important work stays visible,</li>
+            <li>lower-priority work naturally sinks,</li>
+            <li>and ordering reflects deliberate decisions rather than algorithmic guesses.</li>
+          </ul>
+          <p>This reliability enables focused execution and structured thinking workflows.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-2">
+        <h2>Thinking built into the workflow</h2>
+        <div class="stack surface">
+          <h3>The Five-Minute Method</h3>
+          <p>Compass includes a structured thinking session designed to resolve ambiguity, not just track tasks.</p>
+          <p>During a Five-Minute Method session:</p>
+          <ul class="list">
+            <li>tasks are presented one at a time,</li>
+            <li>each receives focused attention for a short, intentional interval,</li>
+            <li>and the system moves forward automatically.</li>
+          </ul>
+          <p>Tasks are completed, clarified, or broken into next steps. By the end of a session, the system is smaller and clearer than before.</p>
+          <p>This is not a timer feature, it is a workflow designed to turn vague tasks into executable work.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-3">
+        <h2>Direction before execution</h2>
+        <div class="stack surface">
+          <p>Compass treats goals as an active part of daily execution, not a separate exercise.</p>
+          <p>The goals system is designed to encourage focus through constraint. Broad goal lists are intentionally narrowed so attention stays aligned with what matters most.</p>
+          <p>Direction is reinforced continuously, not revisited once a year and forgotten.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-4">
+        <h2>Automation through understanding</h2>
+        <div class="stack surface">
+          <p>Compass demonstrates a different model of automation.</p>
+          <p>Instead of relying on rigid rules or scripts, the system automates:</p>
+          <ul class="list">
+            <li>structure,</li>
+            <li>resurfacing,</li>
+            <li>prioritization,</li>
+            <li>and flow control,</li>
+          </ul>
+          <p>based on how work actually unfolds.</p>
+          <p>As the system understands the workflow more deeply, proactive automation becomes possible without increasing complexity. Automation is the outcome of understanding, not an add-on feature.</p>
+        </div>
+      </section>
+
+      <section class="section fade-delay-1">
+        <h2>Status and evolution</h2>
+        <div class="stack surface">
+          <p>Compass is actively evolving.</p>
+          <p>Features are added when they reduce friction and removed when they introduce unnecessary complexity. Ambiguities are treated as design problems to be solved by the system, not delegated to the user.</p>
+          <p>The trajectory is toward fewer decisions, clearer defaults, and smoother execution over time.</p>
+        </div>
+      </section>
+
+      <section class="callout">
+        <h2>Explore Compass</h2>
+        <p>Compass is free to use and available now.</p>
+        <div class="cta-row">
+          <a class="button primary" href="https://compass.misterautomate.com">Explore the Compass app</a>
+          <a class="button secondary" href="https://compass.misterautomate.com">Free to use. Sign in with Google.</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
