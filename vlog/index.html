@@ -189,44 +189,98 @@
 
     .section {
       margin-top: 56px;
-      display: grid;
-      gap: 22px;
       animation: fadeUp 0.8s ease-out both;
     }
 
-    .post-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
-      border-radius: var(--radius-lg);
-      padding: 32px;
+    /* Grid */
+    .video-grid {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
-    .post-date {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .video-wrap {
-      aspect-ratio: 16 / 9;
-      border-radius: var(--radius-sm);
+    /* Thumbnail card */
+    .thumb-card {
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      background: var(--ink);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(19, 35, 45, 0.08);
     }
 
-    .video-wrap iframe {
+    .thumb-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(19, 35, 45, 0.16);
+    }
+
+    .thumb-img-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: var(--deep);
+      overflow: hidden;
+    }
+
+    .thumb-img-wrap img {
       width: 100%;
       height: 100%;
-      border: 0;
+      object-fit: cover;
       display: block;
+      transition: transform 0.3s ease;
     }
 
+    .thumb-card:hover .thumb-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(19, 35, 45, 0.28);
+      transition: background 0.2s ease;
+    }
+
+    .thumb-card:hover .play-btn {
+      background: rgba(19, 35, 45, 0.18);
+    }
+
+    .play-btn svg {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+      transition: transform 0.2s ease;
+    }
+
+    .thumb-card:hover .play-btn svg {
+      transform: scale(1.1);
+    }
+
+    .thumb-meta {
+      padding: 14px 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .thumb-ep {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .thumb-date {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Empty state */
     .empty-state {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -236,6 +290,76 @@
       color: var(--muted);
     }
 
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(13, 22, 28, 0.88);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-video {
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    }
+
+    .modal-video iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.2s ease;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.22); }
+
+    .modal-close svg { width: 16px; height: 16px; }
+
+    /* Animations */
     .fade-delay-1 { animation-delay: 0.08s; }
 
     @keyframes fadeUp {
@@ -245,6 +369,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 900px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 720px) {
@@ -266,8 +394,9 @@
 
       .page { padding-inline: 18px; }
 
-      .page-hero,
-      .post-card { padding: 24px; }
+      .page-hero { padding: 24px; }
+
+      .video-grid { grid-template-columns: 1fr; gap: 14px; }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -305,7 +434,65 @@
     </main>
   </div>
 
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/>
+        </svg>
+      </button>
+      <div class="modal-video" id="modal-video"></div>
+    </div>
+  </div>
+
   <script>
+    function getVideoId(embedHtml) {
+      const match = embedHtml.match(/youtube\.com\/embed\/([A-Za-z0-9_-]+)/);
+      return match ? match[1] : null;
+    }
+
+    function thumbUrl(videoId) {
+      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+
+    function buildEmbed(embedHtml) {
+      return embedHtml
+        .replace(/width="\d+"/, 'width="100%"')
+        .replace(/height="\d+"/, 'height="100%"')
+        .replace('src="//', 'src="https://') // ensure https
+        .replace('src="https://www.youtube.com/embed/', 'src="https://www.youtube.com/embed/')
+        .replace(/"(https:\/\/www\.youtube\.com\/embed\/[A-Za-z0-9_-]+)"/, (_, url) => `"${url}?autoplay=1"`);
+    }
+
+    // Modal logic
+    const modal = document.getElementById('modal');
+    const modalVideo = document.getElementById('modal-video');
+
+    function openModal(embedHtml) {
+      modalVideo.innerHTML = buildEmbed(embedHtml);
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      // Destroy iframe to stop video
+      setTimeout(() => { modalVideo.innerHTML = ''; }, 250);
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Load posts
     fetch('posts.json')
       .then(r => r.json())
       .then(posts => {
@@ -318,17 +505,42 @@
 
         const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        container.innerHTML = sorted.map(post => {
+        const cards = sorted.map((post, i) => {
+          const videoId = getVideoId(post.embedHtml);
           const date = new Date(post.date + 'T00:00:00');
-          const label = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-          const embed = post.embedHtml.replace(/width="\d+"/, 'width="100%"').replace(/height="\d+"/, 'height="100%"');
+          const label = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          const ep = sorted.length - i;
+          const embedEscaped = post.embedHtml.replace(/"/g, '&quot;');
+
           return `
-            <article class="post-card">
-              <div class="post-date">${label}</div>
-              <div class="video-wrap">${embed}</div>
+            <article class="thumb-card" role="button" tabindex="0" data-embed="${embedEscaped}" aria-label="Play episode ${ep}">
+              <div class="thumb-img-wrap">
+                <img src="${thumbUrl(videoId)}" alt="Episode ${ep} thumbnail" loading="lazy" />
+                <div class="play-btn" aria-hidden="true">
+                  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="26" cy="26" r="26" fill="rgba(255,255,255,0.18)"/>
+                    <polygon points="21,17 38,26 21,35" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="thumb-meta">
+                <span class="thumb-ep">Ep. ${ep}</span>
+                <span class="thumb-date">${label}</span>
+              </div>
             </article>
           `;
         }).join('');
+
+        container.innerHTML = `<div class="video-grid">${cards}</div>`;
+
+        // Attach click handlers
+        container.querySelectorAll('.thumb-card').forEach(card => {
+          const open = () => openModal(card.dataset.embed.replace(/&quot;/g, '"'));
+          card.addEventListener('click', open);
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+          });
+        });
       })
       .catch(() => {
         document.getElementById('posts-container').innerHTML =
