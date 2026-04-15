@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vlog | David Holt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Video updates from David Holt on automation, AI systems, and product development." />
+  <link rel="icon" href="../icon_square.ico" type="image/x-icon" />
+  <style>
+    :root {
+      --bg: #edf1f4;
+      --panel: rgba(255, 255, 255, 0.86);
+      --panel-strong: #ffffff;
+      --ink: #13232d;
+      --muted: #5a6a74;
+      --line: rgba(19, 35, 45, 0.12);
+      --accent: #8b5e3c;
+      --accent-soft: rgba(139, 94, 60, 0.12);
+      --deep: #1d3442;
+      --shadow: 0 24px 70px rgba(19, 35, 45, 0.12);
+      --radius-xl: 34px;
+      --radius-lg: 22px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at top left, rgba(139, 94, 60, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(29, 52, 66, 0.12), transparent 30%),
+        linear-gradient(180deg, #f6f8fa 0%, var(--bg) 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(6px);
+      opacity: 0.9;
+    }
+
+    body::before {
+      width: 380px;
+      height: 380px;
+      top: -140px;
+      right: -120px;
+      background: radial-gradient(circle at 35% 35%, rgba(139, 94, 60, 0.18), transparent 68%);
+    }
+
+    body::after {
+      width: 420px;
+      height: 420px;
+      left: -160px;
+      bottom: -180px;
+      background: radial-gradient(circle at 50% 50%, rgba(29, 52, 66, 0.14), transparent 72%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 96px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 8px 0 32px;
+    }
+
+    .brand {
+      display: block;
+      min-width: 220px;
+      min-height: 1px;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: flex-end;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a,
+    .nav summary {
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .nav a:hover,
+    .nav summary:hover,
+    .nav details[open] summary {
+      color: var(--ink);
+      border-color: var(--accent);
+    }
+
+    .nav a.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav summary::-webkit-details-marker { display: none; }
+
+    .nav details { position: relative; }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 220px;
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 40px rgba(19, 35, 45, 0.14);
+      display: grid;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border-bottom: 0;
+    }
+
+    .dropdown-menu a:hover { background: rgba(19, 35, 45, 0.05); }
+
+    h1, h2, h3 {
+      font-family: "Fraunces", "Georgia", serif;
+      letter-spacing: 0.01em;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .page-hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      display: grid;
+      gap: 12px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .page-hero h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1;
+    }
+
+    .page-hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 58ch;
+    }
+
+    .section {
+      margin-top: 56px;
+      display: grid;
+      gap: 22px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .post-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .post-date {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .video-wrap {
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--ink);
+    }
+
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .empty-state {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .fade-delay-1 { animation-delay: 0.08s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+
+      .dropdown-menu {
+        position: static;
+        margin-top: 8px;
+        min-width: 0;
+      }
+
+      .page { padding-inline: 18px; }
+
+      .page-hero,
+      .post-card { padding: 24px; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="Home"></a>
+      <nav class="nav">
+        <a href="../#experience">Experience</a>
+        <details>
+          <summary>Projects</summary>
+          <div class="dropdown-menu">
+            <a href="../compass/">Compass</a>
+            <a href="../linkedin/">LinkedIn Feed Filter</a>
+          </div>
+        </details>
+        <a href="../vlog/" class="active">Vlog</a>
+        <a href="https://www.linkedin.com/in/david-h-27397413a/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-hero">
+        <p class="eyebrow">Video updates</p>
+        <h1>Vlog</h1>
+        <p>Building in public — automation systems, AI tools, and product development as it happens.</p>
+      </div>
+
+      <section class="section fade-delay-1" id="posts">
+        <div id="posts-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    fetch('posts.json')
+      .then(r => r.json())
+      .then(posts => {
+        const container = document.getElementById('posts-container');
+
+        if (!posts.length) {
+          container.innerHTML = '<div class="empty-state">No posts yet. Check back soon.</div>';
+          return;
+        }
+
+        const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        container.innerHTML = sorted.map(post => {
+          const date = new Date(post.date + 'T00:00:00');
+          const label = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          const embed = post.embedHtml.replace(/width="\d+"/, 'width="100%"').replace(/height="\d+"/, 'height="100%"');
+          return `
+            <article class="post-card">
+              <div class="post-date">${label}</div>
+              <div class="video-wrap">${embed}</div>
+            </article>
+          `;
+        }).join('');
+      })
+      .catch(() => {
+        document.getElementById('posts-container').innerHTML =
+          '<div class="empty-state">Could not load posts.</div>';
+      });
+  </script>
+</body>
+</html>
