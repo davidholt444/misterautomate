@@ -13,6 +13,7 @@
   {
     "date": "2026-04-14",
     "title": "Hello World",
-    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/TMyqjOFRVEc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/TMyqjOFRVEc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "transcript": "Hello world. What a technical pun.\n\nThe purpose of this video has nothing to do with being fancy or getting views — it has everything to do with proving that an automated workflow of uploading a video to YouTube will work.\n\nWe'll see if this shows up on my channel. If it does, then we know the first hello world experiment was successful. That's what this is all about.\n\nMy theory is that it should be very easy to upload new videos — I'm going to try to automate the whole process, so it's just a drag into a folder.\n\nAlright, that's it for my hello world video."
   }
 ]
