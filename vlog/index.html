@@ -564,8 +564,18 @@
         <p>Building in public — automation systems, AI tools, and product development as it happens.</p>
       </div>
 
+      <div class="search-wrap">
+        <div class="search-box">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
+          </svg>
+          <input type="search" id="search-input" placeholder="Search titles and transcripts…" autocomplete="off" aria-label="Search videos" />
+        </div>
+      </div>
+
       <section class="section fade-delay-1" id="posts">
         <div id="posts-container"></div>
+        <div class="no-results" id="no-results">No videos match your search.</div>
       </section>
     </main>
   </div>
@@ -702,6 +712,26 @@
         }).join('');
 
         container.innerHTML = `<div class="video-grid">${cards}</div>`;
+
+        // Search filter
+        const searchInput = document.getElementById('search-input');
+        const noResults = document.getElementById('no-results');
+
+        function filterCards(query) {
+          const q = query.toLowerCase().trim();
+          const cards = container.querySelectorAll('.thumb-card');
+          let visible = 0;
+          cards.forEach(card => {
+            const titleMatch = card.dataset.title.toLowerCase().includes(q);
+            const transcriptMatch = card.dataset.transcript.toLowerCase().includes(q);
+            const show = !q || titleMatch || transcriptMatch;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+          });
+          noResults.style.display = visible === 0 && q ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', e => filterCards(e.target.value));
 
         // Attach click handlers
         container.querySelectorAll('.thumb-card').forEach(card => {
