@@ -2,7 +2,8 @@
   {
     "date": "2026-04-20",
     "title": "Is plain chat the best?",
-    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/oRjZ1WQjigs\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/oRjZ1WQjigs\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
+    "transcript": "One thing I found interesting: I've tried a lot of things — custom GPTs, skills, various AI tools — and I found myself going back to just plain chat sometimes. Even just the auto, no-thinking model for a lot of questions. There's not really a right or wrong answer — some tasks definitely need thinking capabilities or more reasoning. But I guess what I take from this is that sometimes I've tried to automate something before it really needed to be. Like, let's make a custom tool just for this — but really, plain chat would work fine.\n\nI guess it goes back to something I keep running into: do it manually first. That's the key rule I've come up with for automation. If you do something manually, you deeply understand how it works, and so you know what it's going to take to automate it.\n\nI feel like I've jumped to automating everything before it really needed to be. A takeaway for myself: see the repetition maybe three or four times before looking to build a special tool — because I keep doing the exact same thing over and over, and at that point it makes sense to automate. But yeah, I'm probably just a bit too jumpy to automate everything. Anyway, it's a lot of fun."
   },
   {
     "date": "2026-04-15",
