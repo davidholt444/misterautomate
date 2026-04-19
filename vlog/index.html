@@ -359,6 +359,52 @@
 
     .modal-close svg { width: 16px; height: 16px; }
 
+    .modal-transcript {
+      margin-top: 16px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-transcript summary {
+      padding: 12px 18px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .modal-transcript summary::-webkit-details-marker { display: none; }
+
+    .modal-transcript summary:hover { color: rgba(255, 255, 255, 0.9); }
+
+    .modal-transcript summary svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .modal-transcript[open] summary svg { transform: rotate(90deg); }
+
+    .transcript-body {
+      padding: 0 18px 18px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
     /* Animations */
     .fade-delay-1 { animation-delay: 0.08s; }
 
@@ -443,6 +489,7 @@
         </svg>
       </button>
       <div class="modal-video" id="modal-video"></div>
+      <div id="modal-transcript-wrap"></div>
     </div>
   </div>
 
@@ -468,9 +515,24 @@
     // Modal logic
     const modal = document.getElementById('modal');
     const modalVideo = document.getElementById('modal-video');
+    const modalTranscriptWrap = document.getElementById('modal-transcript-wrap');
 
-    function openModal(embedHtml) {
+    function openModal(embedHtml, transcript) {
       modalVideo.innerHTML = buildEmbed(embedHtml);
+      if (transcript) {
+        modalTranscriptWrap.innerHTML = `
+          <details class="modal-transcript">
+            <summary>
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5,2 10,7 5,12"/>
+              </svg>
+              Transcript
+            </summary>
+            <div class="transcript-body">${transcript.replace(/</g, '&lt;')}</div>
+          </details>`;
+      } else {
+        modalTranscriptWrap.innerHTML = '';
+      }
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -511,9 +573,10 @@
           const label = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
           const ep = sorted.length - i;
           const embedEscaped = post.embedHtml.replace(/"/g, '&quot;');
+          const transcriptEscaped = (post.transcript || '').replace(/"/g, '&quot;');
 
           return `
-            <article class="thumb-card" role="button" tabindex="0" data-embed="${embedEscaped}" aria-label="Play episode ${ep}">
+            <article class="thumb-card" role="button" tabindex="0" data-embed="${embedEscaped}" data-transcript="${transcriptEscaped}" aria-label="Play episode ${ep}">
               <div class="thumb-img-wrap">
                 <img src="${thumbUrl(videoId)}" alt="Episode ${ep} thumbnail" loading="lazy" />
                 <div class="play-btn" aria-hidden="true">
@@ -535,7 +598,7 @@
 
         // Attach click handlers
         container.querySelectorAll('.thumb-card').forEach(card => {
-          const open = () => openModal(card.dataset.embed.replace(/&quot;/g, '"'));
+          const open = () => openModal(card.dataset.embed.replace(/&quot;/g, '"'), card.dataset.transcript.replace(/&quot;/g, '"') || null);
           card.addEventListener('click', open);
           card.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
