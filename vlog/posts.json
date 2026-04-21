@@ -1,5 +1,10 @@
 [
   {
+    "date": "2026-04-21",
+    "title": "Video Automation Update",
+    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/r_ecyy5VXj4\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+  },
+  {
     "date": "2026-04-20",
     "title": "Is plain chat the best?",
     "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/oRjZ1WQjigs\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
