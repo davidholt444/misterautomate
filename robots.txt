@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /linkedin/
 
 Sitemap: https://misterautomate.com/sitemap.xml
