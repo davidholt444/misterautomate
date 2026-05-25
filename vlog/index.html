@@ -96,6 +96,7 @@
       padding: 28px 24px 96px;
     }
 
+    /* Header */
     .site-header {
       display: flex;
       align-items: center;
@@ -182,6 +183,7 @@
       font-weight: 600;
     }
 
+    /* Page hero (index only) */
     .page-hero {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -210,129 +212,6 @@
     .section {
       margin-top: 56px;
       animation: fadeUp 0.8s ease-out both;
-    }
-
-    /* Grid */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    /* Thumbnail card */
-    .thumb-card {
-      background: var(--panel-strong);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(19, 35, 45, 0.08);
-    }
-
-    .thumb-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(19, 35, 45, 0.16);
-    }
-
-    .thumb-img-wrap {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: var(--deep);
-      overflow: hidden;
-    }
-
-    .thumb-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .thumb-card:hover .thumb-img-wrap img {
-      transform: scale(1.04);
-    }
-
-    .play-btn {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(19, 35, 45, 0.28);
-      transition: background 0.2s ease;
-    }
-
-    .thumb-card:hover .play-btn {
-      background: rgba(19, 35, 45, 0.18);
-    }
-
-    .play-btn svg {
-      width: 52px;
-      height: 52px;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-      transition: transform 0.2s ease;
-    }
-
-    .thumb-card:hover .play-btn svg {
-      transform: scale(1.1);
-    }
-
-    .thumb-meta {
-      padding: 12px 16px 14px;
-      display: grid;
-      gap: 5px;
-    }
-
-    .thumb-title {
-      font-family: "Fraunces", "Georgia", serif;
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.3;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .thumb-sub {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .thumb-ep {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .thumb-date {
-      color: var(--muted);
-      font-size: 0.75rem;
-    }
-
-    .thumb-dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--line);
-      flex-shrink: 0;
-    }
-
-    .thumb-transcript-badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border-radius: 4px;
-      padding: 1px 5px;
-      margin-left: auto;
     }
 
     /* Search */
@@ -382,6 +261,7 @@
 
     .no-results {
       display: none;
+      margin-top: 12px;
       padding: 48px 32px;
       text-align: center;
       color: var(--muted);
@@ -390,7 +270,6 @@
       border-radius: var(--radius-lg);
     }
 
-    /* Empty state */
     .empty-state {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -400,174 +279,242 @@
       color: var(--muted);
     }
 
-    /* Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(13, 22, 28, 0.88);
-      backdrop-filter: blur(6px);
+    /* ── INDEX: Post list ── */
+    .post-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .post-card {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
+      gap: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 4px 16px rgba(19, 35, 45, 0.06);
     }
 
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
+    .post-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(19, 35, 45, 0.12);
+      border-color: rgba(139, 94, 60, 0.25);
     }
 
-    .modal-box {
-      position: relative;
+    .post-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .post-card-thumb {
+      flex-shrink: 0;
+      width: 150px;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--deep);
+    }
+
+    .post-card-thumb img {
       width: 100%;
-      max-width: 900px;
-      transform: translateY(16px) scale(0.98);
-      transition: transform 0.25s ease;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
     }
 
-    .modal-overlay.open .modal-box {
-      transform: translateY(0) scale(1);
+    .post-card:hover .post-card-thumb img {
+      transform: scale(1.05);
     }
 
-    .modal-video {
+    .post-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .post-ep {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .post-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    .post-date {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .article-badge {
+      margin-left: auto;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    .post-card-title {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0 0 8px;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+    }
+
+    .post-card-excerpt {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── POST DETAIL ── */
+    .post-detail {
+      max-width: 760px;
+      margin: 0 auto;
+      animation: fadeUp 0.6s ease-out both;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 36px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    .post-detail-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .post-detail-title {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin: 0 0 32px;
+      color: var(--ink);
+    }
+
+    .post-video-wrap {
       aspect-ratio: 16 / 9;
       border-radius: var(--radius-lg);
       overflow: hidden;
       background: #000;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+      box-shadow: var(--shadow);
+      margin-bottom: 44px;
     }
 
-    .modal-video iframe {
+    .post-video-wrap iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
     }
 
-    .modal-close {
-      position: absolute;
-      top: -44px;
-      right: 0;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #fff;
-      transition: background 0.2s ease;
+    /* Prose (polished article body) */
+    .prose {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--ink);
     }
 
-    .modal-close:hover { background: rgba(255,255,255,0.22); }
-
-    .modal-close svg { width: 16px; height: 16px; }
-
-    .modal-transcript {
-      margin-top: 16px;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .modal-transcript summary {
-      padding: 12px 18px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .prose h2 {
+      font-family: "Fraunces", "Georgia", serif;
+      font-size: 1.35rem;
       font-weight: 600;
-      list-style: none;
-      display: flex;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .prose p {
+      margin: 0 0 1.25rem;
+    }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* Transcript-only view */
+    .transcript-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .transcript-text p {
+      margin: 0 0 1.2rem;
+    }
+
+    .transcript-text p:last-child { margin-bottom: 0; }
+
+    /* Raw transcript toggle (article posts only) */
+    .transcript-toggle {
+      margin-top: 52px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .transcript-toggle summary {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
       user-select: none;
       transition: color 0.2s ease;
     }
 
-    .modal-transcript summary::-webkit-details-marker { display: none; }
+    .transcript-toggle summary::-webkit-details-marker { display: none; }
+    .transcript-toggle summary:hover { color: var(--accent); }
 
-    .modal-transcript summary:hover { color: rgba(255, 255, 255, 0.9); }
-
-    .modal-transcript summary svg {
-      width: 14px;
-      height: 14px;
+    .transcript-toggle summary svg {
       transition: transform 0.2s ease;
       flex-shrink: 0;
     }
 
-    .modal-transcript[open] summary svg { transform: rotate(90deg); }
+    .transcript-toggle[open] summary svg { transform: rotate(90deg); }
 
-    .transcript-body {
-      padding: 0 18px 0;
-      color: rgba(255, 255, 255, 0.55);
-      font-size: 0.88rem;
+    .transcript-toggle-body {
+      margin-top: 20px;
+      font-size: 0.92rem;
       line-height: 1.75;
-      max-height: 320px;
-      overflow-y: auto;
-      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    }
-
-    .transcript-body::after {
-      content: '';
-      display: block;
-      height: 48px;
-    }
-
-    /* Transcript-open: side-by-side layout */
-    .modal-box {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    #modal-left { width: 100%; }
-
-    .modal-box.transcript-open {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 20px;
-      max-width: 1160px;
-    }
-
-    .modal-box.transcript-open #modal-left {
-      width: 44%;
-      flex-shrink: 0;
-    }
-
-    .modal-box.transcript-open #modal-transcript-wrap {
-      flex: 1;
-      min-width: 0;
-      align-self: stretch;
-    }
-
-    .modal-box.transcript-open .modal-transcript {
-      margin-top: 0;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-box.transcript-open .transcript-body {
-      max-height: 62vh;
-      flex: 1;
-    }
-
-    @media (max-width: 700px) {
-      .modal-box.transcript-open {
-        flex-direction: column;
-        max-width: 900px;
-      }
-      .modal-box.transcript-open #modal-left { width: 100%; }
+      color: var(--muted);
     }
 
     /* Animations */
@@ -580,10 +527,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    }
-
-    @media (max-width: 900px) {
-      .video-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 720px) {
@@ -604,10 +547,11 @@
       }
 
       .page { padding-inline: 18px; }
-
       .page-hero { padding: 24px; }
-
-      .video-grid { grid-template-columns: 1fr; gap: 14px; }
+      .post-card { padding: 16px 18px; gap: 16px; }
+      .post-card-thumb { width: 104px; }
+      .post-card-title { font-size: 1.15rem; }
+      .post-detail-title { font-size: 1.7rem; }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -652,208 +596,214 @@
         <a href="https://www.linkedin.com/in/david-h-27397413a/">Contact</a>
       </nav>
     </header>
-
-    <main>
-      <div class="page-hero">
-        <p class="eyebrow">Video updates</p>
-        <h1>Vlog</h1>
-        <p>Thinking out loud about AI, automation, and life.</p>
-      </div>
-
-      <div class="search-wrap">
-        <div class="search-box">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
-          </svg>
-          <input type="search" id="search-input" placeholder="Search titles and transcripts…" autocomplete="off" aria-label="Search videos" />
-        </div>
-      </div>
-
-      <section class="section fade-delay-1" id="posts">
-        <div id="posts-container"></div>
-        <div class="no-results" id="no-results">No videos match your search.</div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-label="Video player">
-    <div class="modal-box">
-      <button class="modal-close" id="modal-close" aria-label="Close">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/>
-        </svg>
-      </button>
-      <div id="modal-left">
-        <div id="modal-title" style="display:none; color:#fff; font-family:'Fraunces','Georgia',serif; font-size:1.1rem; font-weight:600; margin-bottom:10px; line-height:1.3;"></div>
-        <div class="modal-video" id="modal-video"></div>
-      </div>
-      <div id="modal-transcript-wrap"></div>
-    </div>
+    <main id="main-content"></main>
   </div>
 
   <script>
     function getVideoId(embedHtml) {
-      const match = embedHtml.match(/youtube\.com\/embed\/([A-Za-z0-9_-]+)/);
-      return match ? match[1] : null;
-    }
-
-    function thumbUrl(videoId) {
-      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      const m = embedHtml.match(/youtube\.com\/embed\/([A-Za-z0-9_-]+)/);
+      return m ? m[1] : null;
     }
 
     function buildEmbed(embedHtml) {
       return embedHtml
         .replace(/width="\d+"/, 'width="100%"')
         .replace(/height="\d+"/, 'height="100%"')
-        .replace('src="//', 'src="https://') // ensure https
-        .replace('src="https://www.youtube.com/embed/', 'src="https://www.youtube.com/embed/')
-        .replace(/"(https:\/\/www\.youtube\.com\/embed\/[A-Za-z0-9_-]+)"/, (_, url) => `"${url}?autoplay=1"`);
+        .replace('src="//', 'src="https://');
     }
 
-    // Modal logic
-    const modal = document.getElementById('modal');
-    const modalVideo = document.getElementById('modal-video');
-    const modalTranscriptWrap = document.getElementById('modal-transcript-wrap');
-
-    function openModal(embedHtml, transcript, title) {
-      const modalTitle = document.getElementById('modal-title');
-      if (title) {
-        modalTitle.textContent = title;
-        modalTitle.style.display = 'block';
-      } else {
-        modalTitle.style.display = 'none';
-      }
-      modalVideo.innerHTML = buildEmbed(embedHtml);
-      if (transcript) {
-        modalTranscriptWrap.innerHTML = `
-          <details class="modal-transcript">
-            <summary>
-              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="5,2 10,7 5,12"/>
-              </svg>
-              Transcript
-            </summary>
-            <div class="transcript-body">${transcript.replace(/</g, '&lt;').replace(/\n/g, '<br><br>')}</div>
-          </details>`;
-        // Switch to side-by-side layout when transcript is open
-        const details = modalTranscriptWrap.querySelector('details');
-        const modalBox = document.querySelector('.modal-box');
-        details.addEventListener('toggle', () => {
-          modalBox.classList.toggle('transcript-open', details.open);
-        });
-      } else {
-        modalTranscriptWrap.innerHTML = '';
-      }
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.classList.remove('open');
-      document.querySelector('.modal-box').classList.remove('transcript-open');
-      document.body.style.overflow = '';
-      setTimeout(() => { modalVideo.innerHTML = ''; }, 250);
-    }
-
-    document.getElementById('modal-close').addEventListener('click', closeModal);
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeModal();
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Load posts
-    fetch('posts.json')
-      .then(r => r.json())
-      .then(posts => {
-        const container = document.getElementById('posts-container');
-
-        if (!posts.length) {
-          container.innerHTML = '<div class="empty-state">No posts yet. Check back soon.</div>';
-          return;
-        }
-
-        const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        const cards = sorted.map((post, i) => {
-          const videoId = getVideoId(post.embedHtml);
-          const date = new Date(post.date + 'T00:00:00');
-          const label = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-          const ep = sorted.length - i;
-          const embedEscaped = post.embedHtml.replace(/"/g, '&quot;');
-          const transcriptEscaped = (post.transcript || '').replace(/"/g, '&quot;');
-
-          const title = post.title || '';
-          const titleEscaped = title.replace(/"/g, '&quot;');
-          const transcriptBadge = post.transcript ? '<span class="thumb-transcript-badge">Transcript</span>' : '';
-
-          return `
-            <article class="thumb-card" role="button" tabindex="0" data-embed="${embedEscaped}" data-transcript="${transcriptEscaped}" data-title="${titleEscaped}" aria-label="${title || `Episode ${ep}`}">
-              <div class="thumb-img-wrap">
-                <img src="${thumbUrl(videoId)}" alt="${title || `Episode ${ep}`}" loading="lazy" />
-                <div class="play-btn" aria-hidden="true">
-                  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="26" cy="26" r="26" fill="rgba(255,255,255,0.18)"/>
-                    <polygon points="21,17 38,26 21,35" fill="white"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="thumb-meta">
-                ${title ? `<div class="thumb-title">${title}</div>` : ''}
-                <div class="thumb-sub">
-                  <span class="thumb-ep">Ep. ${ep}</span>
-                  <span class="thumb-dot"></span>
-                  <span class="thumb-date">${label}</span>
-                  ${transcriptBadge}
-                </div>
-              </div>
-            </article>
-          `;
-        }).join('');
-
-        container.innerHTML = `<div class="video-grid">${cards}</div>`;
-
-        // Search filter
-        const searchInput = document.getElementById('search-input');
-        const noResults = document.getElementById('no-results');
-
-        function filterCards(query) {
-          const q = query.toLowerCase().trim();
-          const cards = container.querySelectorAll('.thumb-card');
-          let visible = 0;
-          cards.forEach(card => {
-            const titleMatch = card.dataset.title.toLowerCase().includes(q);
-            const transcriptMatch = card.dataset.transcript.toLowerCase().includes(q);
-            const show = !q || titleMatch || transcriptMatch;
-            card.style.display = show ? '' : 'none';
-            if (show) visible++;
-          });
-          noResults.style.display = visible === 0 && q ? 'block' : 'none';
-        }
-
-        searchInput.addEventListener('input', e => filterCards(e.target.value));
-
-        // Attach click handlers
-        container.querySelectorAll('.thumb-card').forEach(card => {
-          const open = () => openModal(
-            card.dataset.embed.replace(/&quot;/g, '"'),
-            card.dataset.transcript.replace(/&quot;/g, '"') || null,
-            card.dataset.title.replace(/&quot;/g, '"') || null
-          );
-          card.addEventListener('click', open);
-          card.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
-          });
-        });
-      })
-      .catch(() => {
-        document.getElementById('posts-container').innerHTML =
-          '<div class="empty-state">Could not load posts.</div>';
+    function formatDate(dateStr) {
+      return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
       });
+    }
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function transcriptToParas(text) {
+      const sentences = text.match(/[^.!?]+[.!?]+(?:\s|$)/g) || [text];
+      const paras = [];
+      for (let i = 0; i < sentences.length; i += 4) {
+        paras.push(sentences.slice(i, i + 4).join('').trim());
+      }
+      return paras.map(p => `<p>${esc(p)}</p>`).join('');
+    }
+
+    let postsData = [];
+    let articlesData = {};
+    let currentSearch = '';
+
+    function showIndex() {
+      window.scrollTo(0, 0);
+      const total = postsData.length;
+
+      const cards = postsData.map((post, i) => {
+        const videoId = getVideoId(post.embedHtml);
+        const enrich = articlesData[videoId] || {};
+        const ep = total - i;
+        const hasArticle = !!enrich.article;
+        const excerpt = enrich.excerpt || '';
+
+        return `
+          <article class="post-card" role="button" tabindex="0"
+              data-id="${esc(videoId)}"
+              aria-label="${esc(post.title || `Episode ${ep}`)}">
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                <span class="post-ep">Ep. ${ep}</span>
+                <span class="post-dot"></span>
+                <span class="post-date">${formatDate(post.date)}</span>
+                ${hasArticle ? '<span class="article-badge">Article</span>' : ''}
+              </div>
+              <h2 class="post-card-title">${esc(post.title || `Episode ${ep}`)}</h2>
+              ${excerpt ? `<p class="post-card-excerpt">${esc(excerpt)}</p>` : ''}
+            </div>
+            <div class="post-card-thumb">
+              <img src="https://i.ytimg.com/vi/${esc(videoId)}/mqdefault.jpg" alt="" loading="lazy" />
+            </div>
+          </article>`;
+      }).join('');
+
+      document.getElementById('main-content').innerHTML = `
+        <div class="page-hero">
+          <p class="eyebrow">Video updates</p>
+          <h1>Vlog</h1>
+          <p>Thinking out loud about AI, automation, and life.</p>
+        </div>
+        <div class="search-wrap">
+          <div class="search-box">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10.5" y1="10.5" x2="14" y2="14"/>
+            </svg>
+            <input type="search" id="search-input" placeholder="Search posts…" autocomplete="off" aria-label="Search posts" />
+          </div>
+        </div>
+        <section class="section fade-delay-1">
+          ${total ? `<div class="post-list" id="post-list">${cards}</div>` : '<div class="empty-state">No posts yet. Check back soon.</div>'}
+          <div class="no-results" id="no-results">No posts match your search.</div>
+        </section>`;
+
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        searchInput.value = currentSearch;
+        if (currentSearch) filterCards(currentSearch);
+        searchInput.addEventListener('input', e => {
+          currentSearch = e.target.value;
+          filterCards(currentSearch);
+        });
+      }
+
+      const list = document.getElementById('post-list');
+      if (list) {
+        list.querySelectorAll('.post-card').forEach(card => {
+          const go = () => { window.location.hash = card.dataset.id; };
+          card.addEventListener('click', go);
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+          });
+        });
+      }
+    }
+
+    function filterCards(query) {
+      const q = query.toLowerCase().trim();
+      const list = document.getElementById('post-list');
+      const noResults = document.getElementById('no-results');
+      if (!list) return;
+      let visible = 0;
+      list.querySelectorAll('.post-card').forEach(card => {
+        const id = card.dataset.id;
+        const post = postsData.find(p => getVideoId(p.embedHtml) === id) || {};
+        const enrich = articlesData[id] || {};
+        const haystack = [post.title, post.transcript, enrich.excerpt].filter(Boolean).join(' ').toLowerCase();
+        const show = !q || haystack.includes(q);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (noResults) {
+        noResults.style.display = visible === 0 && q ? 'block' : 'none';
+      }
+    }
+
+    function showPost(post) {
+      window.scrollTo(0, 0);
+      const videoId = getVideoId(post.embedHtml);
+      const enrich = articlesData[videoId] || {};
+      const total = postsData.length;
+      const idx = postsData.findIndex(p => getVideoId(p.embedHtml) === videoId);
+      const ep = total - idx;
+      const hasArticle = !!enrich.article;
+      const hasTranscript = !!post.transcript;
+
+      let bodyHtml = '';
+      if (hasArticle) {
+        bodyHtml = `<div class="prose">${enrich.article}</div>`;
+        if (hasTranscript) {
+          bodyHtml += `
+            <details class="transcript-toggle">
+              <summary>
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                  <polyline points="5,2 10,7 5,12"/>
+                </svg>
+                View raw transcript
+              </summary>
+              <div class="transcript-toggle-body">${esc(post.transcript)}</div>
+            </details>`;
+        }
+      } else if (hasTranscript) {
+        bodyHtml = `<div class="transcript-text">${transcriptToParas(post.transcript)}</div>`;
+      }
+
+      document.getElementById('main-content').innerHTML = `
+        <div class="post-detail">
+          <button class="back-link" id="back-btn">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+              <polyline points="9,2 4,7 9,12"/>
+            </svg>
+            All posts
+          </button>
+          <div class="post-detail-meta">
+            <span class="post-ep">Ep. ${ep}</span>
+            <span class="post-dot"></span>
+            <time datetime="${esc(post.date)}">${formatDate(post.date)}</time>
+          </div>
+          <h1 class="post-detail-title">${esc(post.title || `Episode ${ep}`)}</h1>
+          <div class="post-video-wrap">${buildEmbed(post.embedHtml)}</div>
+          ${bodyHtml}
+        </div>`;
+
+      document.getElementById('back-btn').addEventListener('click', () => {
+        window.location.hash = '';
+      });
+    }
+
+    function route() {
+      const videoId = window.location.hash.slice(1);
+      if (videoId) {
+        const post = postsData.find(p => getVideoId(p.embedHtml) === videoId);
+        if (post) { showPost(post); return; }
+      }
+      showIndex();
+    }
+
+    Promise.all([
+      fetch('posts.json').then(r => r.json()),
+      fetch('articles.json').then(r => r.json()).catch(() => ({}))
+    ]).then(([posts, articles]) => {
+      postsData = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+      articlesData = articles;
+      route();
+      window.addEventListener('hashchange', route);
+    }).catch(() => {
+      document.getElementById('main-content').innerHTML =
+        '<div class="empty-state">Could not load posts.</div>';
+    });
   </script>
 </body>
 </html>
