@@ -736,7 +736,8 @@
         const id = card.dataset.id;
         const post = postsData.find(p => getVideoId(p.embedHtml) === id) || {};
         const enrich = articlesData[id] || {};
-        const haystack = decodeEntities([post.title, post.transcript, enrich.excerpt].filter(Boolean).join(' ')).toLowerCase();
+        const articleText = (enrich.article || '').replace(/<[^>]+>/g, ' ');
+        const haystack = decodeEntities([post.title, post.transcript, enrich.excerpt, articleText].filter(Boolean).join(' ')).toLowerCase();
         const show = !q || haystack.includes(q);
         card.style.display = show ? '' : 'none';
         if (show) visible++;
