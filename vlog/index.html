@@ -626,7 +626,22 @@
         .replace(/"/g, '&quot;');
     }
 
+    // Some transcripts arrive HTML-encoded (sometimes doubly, e.g. "&amp;#39;").
+    // Decode repeatedly until stable so the text reads naturally.
+    const decoder = document.createElement('textarea');
+    function decodeEntities(str) {
+      let cur = String(str), prev;
+      let i = 0;
+      do {
+        prev = cur;
+        decoder.innerHTML = prev;
+        cur = decoder.value;
+      } while (cur !== prev && ++i < 5);
+      return cur;
+    }
+
     function transcriptToParas(text) {
+      text = decodeEntities(text);
       const sentences = text.match(/[^.!?]+[.!?]+(?:\s|$)/g) || [text];
       const paras = [];
       for (let i = 0; i < sentences.length; i += 4) {
@@ -721,7 +736,7 @@
         const id = card.dataset.id;
         const post = postsData.find(p => getVideoId(p.embedHtml) === id) || {};
         const enrich = articlesData[id] || {};
-        const haystack = [post.title, post.transcript, enrich.excerpt].filter(Boolean).join(' ').toLowerCase();
+        const haystack = decodeEntities([post.title, post.transcript, enrich.excerpt].filter(Boolean).join(' ')).toLowerCase();
         const show = !q || haystack.includes(q);
         card.style.display = show ? '' : 'none';
         if (show) visible++;
@@ -753,7 +768,7 @@
                 </svg>
                 View raw transcript
               </summary>
-              <div class="transcript-toggle-body">${esc(post.transcript)}</div>
+              <div class="transcript-toggle-body">${esc(decodeEntities(post.transcript))}</div>
             </details>`;
         }
       } else if (hasTranscript) {
