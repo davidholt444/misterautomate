@@ -1,5 +1,10 @@
 [
   {
+    "date": "2026-05-28",
+    "title": "How Credit Cards Work",
+    "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/a4Dm0bgttCg\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+  },
+  {
     "date": "2026-05-21",
     "title": "Time Stops",
     "embedHtml": "<iframe width=\"480\" height=\"360\" src=\"//www.youtube.com/embed/MGWVEbct7HU\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
