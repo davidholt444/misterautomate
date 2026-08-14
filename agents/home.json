@@ -1,0 +1,47 @@
+{
+  "title": "David Holt — AI Solutions Engineer & Automation Builder",
+  "canonical_html": "https://misterautomate.com/",
+  "manifest": "https://misterautomate.com/agents.json",
+  "summary": "David Holt builds workflow systems, conversational agents, and practical automation products. He works at the intersection of pre-AI business tooling and modern AI-assisted systems.",
+  "person": {
+    "name": "David Holt",
+    "job_title": "AI Solutions Engineer",
+    "company": "Mister Automate",
+    "linkedin": "https://www.linkedin.com/in/david-h-27397413a/"
+  },
+  "experience": {
+    "pre_ai": {
+      "focus": "Practical business tools, web publishing, and scripting.",
+      "skills": ["HTML", "WordPress", "Excel", "VB", "PowerShell"]
+    },
+    "modern": {
+      "focus": "AI-assisted systems and productized workflow automation.",
+      "highlights": [
+        "Compass app",
+        "Conversational agent for Salesforce",
+        "Conversational agent for Outlook email",
+        "Conversational agent work for Compass",
+        "OAuth and API key integrations",
+        "Email to task list workflow design"
+      ]
+    }
+  },
+  "projects": [
+    {
+      "name": "Compass",
+      "description": "A task management system built on subtraction, not addition. Uses dated pages, status-driven visibility, and a unified Today surface.",
+      "details_json": "https://misterautomate.com/agents/compass.json",
+      "canonical_html": "https://misterautomate.com/compass/",
+      "app_url": "https://compass.misterautomate.com"
+    }
+  ],
+  "working_principles": [
+    "Workflow first, software second",
+    "Subtraction over feature accumulation",
+    "Automation through understanding",
+    "Professional, usable defaults"
+  ],
+  "contact": {
+    "linkedin": "https://www.linkedin.com/in/david-h-27397413a/"
+  }
+}

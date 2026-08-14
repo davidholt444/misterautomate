@@ -1,0 +1,31 @@
+{
+  "title": "Compass — Task Management System Built on Subtraction",
+  "canonical_html": "https://misterautomate.com/compass/",
+  "manifest": "https://misterautomate.com/agents.json",
+  "app_url": "https://compass.misterautomate.com",
+  "summary": "Compass is a task management system built on subtraction, not addition. Instead of showing everything forever, it uses dated pages, status-driven visibility, and a unified Today surface so the right work appears at the right time.",
+  "core_concepts": {
+    "pages": "Tasks live on the dated page where they were created. The current page stays at the front while old pages recede naturally instead of crowding the present.",
+    "auto_death": "Older entries stop demanding attention without being deleted. Any task can be pulled forward to the current page when it deserves renewed attention.",
+    "status_model": {
+      "ACTIVE": "Working now or intending to work on it now.",
+      "WAITING": "Hidden from the main view until the follow-up date arrives.",
+      "PARKED": "Still present, but visually deprioritized.",
+      "SCHEDULED": "Quiet until its scheduled day arrives.",
+      "COMPLETE": "Archived and accessible, but no longer in working views.",
+      "IDEA": "Preserved without competing with current commitments."
+    },
+    "today_surface": "A unified view combining due/overdue tasks, tasks planned for today, waiting tasks whose follow-up date has arrived, and scheduled tasks whose day has arrived.",
+    "planning_module": "Guides unclear tasks through the Natural Planning Model: purpose, vision of success, brainstorm, organize, next action.",
+    "compass_page": "Holds a single Why statement and a set of Goals that orient the work beneath them.",
+    "priority_matrix": "Helps make trade-offs explicit between competing tasks, with personal and business scoring models."
+  },
+  "supporting_features": [
+    "Projects and subtasks",
+    "Contexts and recurring tasks",
+    "Time reports",
+    "Finance module (net worth view: assets, debts, trajectory)"
+  ],
+  "author": "David Holt",
+  "back_to": "https://misterautomate.com/agents/home.json"
+}

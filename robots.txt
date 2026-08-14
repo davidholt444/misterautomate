@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://misterautomate.com/sitemap.xml
+Agents: https://misterautomate.com/agents.json
