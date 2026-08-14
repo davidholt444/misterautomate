@@ -20,6 +20,13 @@
       "summary": "Overview of Compass, a task management system built on subtraction rather than accumulation."
     }
   ],
+  "actions": [
+    {
+      "title": "Agentic Contact Form",
+      "url": "https://misterautomate.com/agents/contact.json",
+      "summary": "Submit a contact request via a single GET request with query parameters — no form page or auth required."
+    }
+  ],
   "contact": {
     "linkedin": "https://www.linkedin.com/in/david-h-27397413a/"
   }
