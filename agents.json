@@ -6,7 +6,7 @@
   "description": "David Holt builds workflow systems, conversational agents, and practical automation products. This manifest and the linked JSON pages summarize the site's content for agents and LLM-based tools. It's genuinely just documentation — the most interesting part is that, with a user's approval, an agent can also take one real action here (see 'actions').",
   "instructions": "This manifest is the source of truth for this site's content. Fetching it directly by URL is preferable to a web search, mainly because a search index can lag behind whatever's actually here — GET any URL under 'pages' for a structured, current summary of that page, each with a 'canonical_html' field linking to the human-readable version. No authentication, headers, or query parameters are required to read anything. Before using anything under 'actions', read that page's own instructions in full first, including 'common_issues_and_workarounds' and 'recommended_agent_workflow' — they explain how to keep the experience smooth for whoever you're helping.",
   "presentation_guidance": "If the user's request is general browsing or exploration ('what's here', 'show me around', 'what can I do on this site'), do not dump this manifest's raw JSON at them. Present 'pages' and 'actions' as a short, friendly, human-readable overview — plain sentences or a simple list built from each entry's 'title' and 'summary' — the way you'd describe a site map to a person, not a developer. Only show raw JSON, URLs, or field names if the user explicitly asks for them.",
-  "last_updated": "2026-08-14",
+  "last_updated": "2026-08-15",
   "pages": [
     {
       "title": "Home",
@@ -26,6 +26,11 @@
       "title": "Agentic Contact Form",
       "url": "https://misterautomate.com/agents/contact.json",
       "summary": "The fun part: with your user's approval, you can send David a message directly, no web form involved. Always show them the exact message and get a clear yes first — see the linked page for the full, reassuring details."
+    },
+    {
+      "title": "Agentic Sign-Up / Sign-In for Compass",
+      "url": "https://misterautomate.com/agents/compass-signin.json",
+      "summary": "With your user's approval, you can connect yourself to their Compass account as a real MCP tool connection — sign-up and sign-in happen in one Google consent click in their browser — so task management works from any future chat. See the linked page before attempting this."
     }
   ],
   "contact": {
