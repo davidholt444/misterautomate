@@ -1,40 +1,61 @@
 {
   "title": "Agentic Sign-Up / Sign-In for Compass",
   "manifest": "https://misterautomate.com/agents.json",
-  "summary": "Compass isn't just readable by agents — it's usable by them. With a user's OK, you can connect yourself to their Compass account as a real MCP tool connection, so 'add this to my task list' works from any chat afterward, no copy-pasting, no dashboard required.",
-  "mechanism": "This is standard remote-MCP OAuth, not a custom flow. Compass exposes an MCP server at the endpoint below with full OAuth 2.0 discovery (RFC 9728 protected-resource metadata + RFC 8414 authorization-server metadata, PKCE S256, dynamic client registration). If your runtime already knows how to add an authenticated remote MCP server, this endpoint is a normal, spec-compliant target — you don't need anything Compass-specific beyond the URL.",
-  "mcp_endpoint": "https://compass.misterautomate.com/api/mcp",
-  "discovery": {
-    "protected_resource_metadata": "https://compass.misterautomate.com/.well-known/oauth-protected-resource",
-    "authorization_server_metadata": "https://compass.misterautomate.com/.well-known/oauth-authorization-server"
+  "summary": "Compass isn't just readable by agents — it's usable by them. With a user's OK, you can connect yourself to their Compass account as a real MCP tool connection, so 'add this to my task list' works from any chat afterward. The user does exactly two things: click one link, then click Allow.",
+  "mechanism": "A short-lived pairing handshake, not a browser-driven OAuth-in-CLI flow. You (the agent) POST to start a pairing session and get back one link. The user opens it, signs in with Google if needed, and clicks Allow on Compass's own consent screen. Meanwhile you poll a status endpoint; the moment they approve, it hands you a scoped Personal Access Token automatically — no copy-pasting, no dashboard visit required from the user. You then register that token as a normal authenticated remote MCP server in your own local config.",
+  "identity": "Compass accounts are Google-only — there is no separate password sign-up. If the user doesn't have an account yet, clicking the link and signing in with Google creates one on the spot. 'Sign up for Compass' and 'sign in to Compass' are the same click.",
+  "for_the_agent_reading_this": "You do briefly hold a real credential in this flow (unlike a pure OAuth redirect) — the token comes back to you directly from the poll endpoint. Treat it like any other secret: write it straight into your own local MCP config and don't paste it into chat or log it anywhere else. The sensitive step — approving access at all — still only happens on the user's own click, on Compass's own consent screen; you never see or touch their Google credentials.",
+  "endpoints": {
+    "start": {
+      "method": "POST",
+      "url": "https://compass.misterautomate.com/api/agentic-pair/start",
+      "body": { "client_label": "string, optional — a human-readable name for what's connecting, e.g. \"Claude Code\"" },
+      "returns": "{ pairing_id, verification_url, expires_in (seconds, 600), poll_url }"
+    },
+    "poll": {
+      "method": "GET",
+      "url": "Use the poll_url returned by start (or GET https://compass.misterautomate.com/api/agentic-pair/status?pairing_id=<id> directly)",
+      "returns": "{ status: 'pending' | 'denied' | 'expired' | 'delivered', token?, scopes? } — token is only ever included once, on the first read after the user approves. A cached or repeated identical GET can return a stale 'pending' result from your own HTTP client's cache; if you're using a fetch tool with URL-based caching, bust it (e.g. append a throwaway query param) rather than trusting a 'pending' you've already seen once."
+    }
   },
-  "identity": "Compass accounts are Google-only — there is no separate password sign-up. The first time someone completes the consent screen with a Google account, that action both creates their account and signs them in. 'Sign up for Compass' and 'sign in to Compass' are the same click.",
-  "for_the_agent_reading_this": "Your job is to get the user connected, not to touch their data yet. You never see their Google credentials and you never handle a token yourself — the OAuth exchange happens in the user's own browser, where they pick their Google account and approve access on Compass's own consent screen (scopes shown there: read tasks, create and update tasks). That means the sensitive step is already gated by the user's own click, on Compass's own page — your role is purely to register the connector and tell them what to expect.",
-  "recommended_agent_workflow_claude_code": [
-    "1. Tell the user plainly what you're about to do: register Compass as a remote MCP connector, at USER scope so it's available in every future chat and project, not just this one.",
-    "2. Run: claude mcp add --transport http compass --scope user https://compass.misterautomate.com/api/mcp",
-    "3. Trigger sign-in explicitly — adding the server does not by itself open a browser. Run: claude mcp login compass (or, in an interactive session, tell the user to run the /mcp command and pick 'compass'). This opens a browser tab where they pick their Google account, review the requested scopes, and click Allow on Compass's consent screen. That's the entire sign-up/sign-in — no separate account creation step.",
-    "4. Confirm success with claude mcp list (look for compass showing Connected, not 'Needs authentication'), then call a harmless read-only tool (e.g. get_current_user) and report back who they're signed in as.",
-    "5. From then on, plain requests like 'add this to my task list' or 'what's on my plate today' work directly against their real Compass account in any future chat, without repeating setup."
-  ],
-  "recommended_agent_workflow_claude_desktop": [
-    "1. Since Claude Desktop connectors are added through its own Settings UI, not by an agent action, walk the user through it directly: Settings -> Connectors -> Add custom connector.",
-    "2. Tell them to paste in the MCP endpoint URL above and confirm.",
-    "3. Claude Desktop will redirect them to Compass's Google sign-in and consent screen in their browser; once they approve, the connector shows as connected in Settings.",
-    "4. Confirm from your side afterward by calling a read-only Compass tool and reporting back who they're connected as."
+  "mcp_endpoint": "https://compass.misterautomate.com/api/mcp",
+  "recommended_agent_workflow": [
+    "1. Tell the user plainly what you're about to do: start a connection request and hand them one link to approve.",
+    "2. POST to the start endpoint. You'll get back verification_url and poll_url.",
+    "3. Give the user exactly one link — the verification_url. Tell them: click it, sign in with Google (this creates their account if they're new), then click Allow. That's the whole thing on their end.",
+    "4. Poll the poll_url. While status is 'pending', wait for the user to confirm they've clicked through, then poll again — don't hammer it in a tight loop.",
+    "5. The moment status is 'delivered', you have a token (Personal Access Token, scoped to tasks:read and tasks:write by default). Register it as an authenticated HTTP MCP server in your own local config, e.g. claude mcp add --transport http compass --scope user https://compass.misterautomate.com/api/mcp --header \"Authorization: Bearer <token>\" — or the equivalent for your runtime (a plain JSON entry with type:http, the mcp_endpoint url, and an Authorization: Bearer header works anywhere that reads standard MCP server config).",
+    "6. Confirm the connection by calling a read-only tool (e.g. get_current_user) and reporting back who they're connected as.",
+    "7. If the newly registered server's tools aren't available yet in the current session, that's expected — tell the user plainly to close and reopen the Claude app (or start a fresh session) so it picks up the new connection, then retry. Don't treat this as a failure.",
+    "8. From then on, plain requests like 'add this to my task list' or 'what's on my plate today' work directly against their real Compass account in any future chat, without repeating setup."
   ],
   "common_issues_and_workarounds": [
     {
-      "symptom": "Your runtime has no built-in way to add an authenticated remote MCP server (older client, restricted sandbox, etc.)",
-      "cause": "Remote-MCP-with-OAuth support varies by client and version.",
-      "workaround": "Don't attempt to fake the OAuth exchange yourself. Tell the user plainly that your current environment doesn't support this, and point them to a client that does (current Claude Code, or Claude Desktop's Connectors settings)."
+      "symptom": "Your runtime has no way to POST (e.g. a read-only fetch tool)",
+      "cause": "Starting a pairing session requires a POST request.",
+      "workaround": "Tell the user plainly that your current environment can't start this on its own, and point them to compass.misterautomate.com/setup -> API Access to create a Personal Access Token manually, which they can hand you to register the same way."
+    },
+    {
+      "symptom": "Polling keeps returning 'pending' even after the user says they approved",
+      "cause": "Some HTTP fetch tools cache identical GET requests by URL.",
+      "workaround": "Add a throwaway query parameter (e.g. &_=<timestamp>) to force a fresh request, or use a tool/method that doesn't cache GETs."
+    },
+    {
+      "symptom": "The link says 'expired' or the poll never reaches 'delivered'",
+      "cause": "Pairing sessions are single-use and expire after 10 minutes.",
+      "workaround": "Start a new pairing session and give the user a fresh link. Don't reuse an old pairing_id."
+    },
+    {
+      "symptom": "You registered the server but its tools don't show up in this session",
+      "cause": "Some clients only pick up newly added MCP servers on next launch, not mid-session.",
+      "workaround": "Tell the user to close and reopen the Claude app (or start a new session) and try again. This is expected, not an error."
     },
     {
       "symptom": "The user asks to 'log out' or disconnect Compass",
-      "cause": "There is currently no self-serve revoke button inside Compass for this specific connection.",
-      "workaround": "Removing the connector from your own client (claude mcp remove compass, or removing it in Claude Desktop's Connectors settings) stops it from being used going forward. Be upfront that this doesn't yet invalidate the underlying token server-side — tell the user this plainly rather than implying a full revoke happened, and point them to David directly (see agents/contact.json) if they want the grant itself invalidated."
+      "cause": "The connection is backed by a real Personal Access Token, which is self-serve revocable.",
+      "workaround": "Tell them to go to compass.misterautomate.com/setup -> API Access and delete the key named \"Claude Code (agent pairing)\" (or whatever client_label was used). That immediately invalidates it server-side. Removing the server from their own local MCP config stops you from using it too, but doesn't revoke it — the /setup page is the real off switch."
     }
   ],
-  "notes": "Unlike agents/contact.json, this is not an API call you make on the user's behalf — it's a client-side connector registration that hands off to a browser flow the user completes themselves. There is nothing here for you to POST, no data to draft, and no approval-then-send step beyond telling the user what you're registering and why.",
+  "notes": "Unlike agents/contact.json, this doesn't POST data on the user's behalf into their account — it establishes a connection. The one payload you do handle is the token itself, which exists only briefly in your hands between the poll response and writing it into local config.",
   "back_to": "https://misterautomate.com/agents/home.json"
 }

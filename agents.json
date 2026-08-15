@@ -30,7 +30,7 @@
     {
       "title": "Agentic Sign-Up / Sign-In for Compass",
       "url": "https://misterautomate.com/agents/compass-signin.json",
-      "summary": "With your user's approval, you can connect yourself to their Compass account as a real MCP tool connection — sign-up and sign-in happen in one Google consent click in their browser — so task management works from any future chat. See the linked page before attempting this."
+      "summary": "With your user's approval, you can connect yourself to their Compass account as a real MCP tool connection — the user clicks one link, signs in with Google (which creates their account if they're new), and clicks Allow, and you pick up the connection automatically from there. See the linked page before attempting this."
     }
   ],
   "contact": {
