@@ -56,9 +56,9 @@
       "workaround": "Tell the user to close and reopen the Claude app (or start a new session) and try again. This is expected, not an error."
     },
     {
-      "symptom": "The user asks to 'log out' or disconnect Compass",
-      "cause": "The connection is backed by a real Personal Access Token, which is self-serve revocable.",
-      "workaround": "Tell them to go to compass.misterautomate.com/setup -> API Access and delete the key named \"Claude Code (agent pairing)\" (or whatever client_label was used). That immediately invalidates it server-side. Removing the server from their own local MCP config stops you from using it too, but doesn't revoke it — the /setup page is the real off switch."
+      "symptom": "The user asks to 'log out', 'sign out', or disconnect Compass",
+      "cause": "The connection is backed by a real Personal Access Token, which is self-serve revocable — this can be done agentically, no dashboard visit required.",
+      "workaround": "Get a clear yes first (this is irreversible from your side), then call the sign_out MCP tool. It revokes the exact token this connection is using, immediately and server-side — no id to look up, nothing for the user to click. After it succeeds, tell them plainly they're signed out; the local MCP server entry in their config is now inert (any further call 401s) and doesn't need to be deleted for the sign-out to take effect, though they're welcome to remove it. If sign_out itself isn't available (e.g. you're calling the REST API directly rather than through MCP tools), fall back to compass.misterautomate.com/setup -> API Access and tell them to delete the key by name."
     }
   ],
   "notes": "Unlike agents/contact.json, this doesn't POST data on the user's behalf into their account — it establishes a connection. The one payload you do handle is the token itself, which exists only briefly in your hands between the poll response and writing it into local config.",
