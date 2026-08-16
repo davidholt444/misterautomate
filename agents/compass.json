@@ -1,31 +1,31 @@
 {
-  "title": "Compass — Task Management System Built on Subtraction",
+  "title": "Compass — Agentic Task & Work Management",
   "canonical_html": "https://misterautomate.com/compass/",
   "manifest": "https://misterautomate.com/agents.json",
   "app_url": "https://compass.misterautomate.com",
-  "summary": "Compass is a task management system built on subtraction, not addition. Instead of showing everything forever, it uses dated pages, status-driven visibility, and a unified Today surface so the right work appears at the right time.",
-  "core_concepts": {
-    "pages": "Tasks live on the dated page where they were created. The current page stays at the front while old pages recede naturally instead of crowding the present.",
-    "auto_death": "Older entries stop demanding attention without being deleted. Any task can be pulled forward to the current page when it deserves renewed attention.",
-    "status_model": {
-      "ACTIVE": "Working now or intending to work on it now.",
-      "WAITING": "Hidden from the main view until the follow-up date arrives.",
-      "PARKED": "Still present, but visually deprioritized.",
-      "SCHEDULED": "Quiet until its scheduled day arrives.",
-      "COMPLETE": "Archived and accessible, but no longer in working views.",
-      "IDEA": "Preserved without competing with current commitments."
-    },
-    "today_surface": "A unified view combining due/overdue tasks, tasks planned for today, waiting tasks whose follow-up date has arrived, and scheduled tasks whose day has arrived.",
-    "planning_module": "Guides unclear tasks through the Natural Planning Model: purpose, vision of success, brainstorm, organize, next action.",
-    "compass_page": "Holds a single Why statement and a set of Goals that orient the work beneath them.",
-    "priority_matrix": "Helps make trade-offs explicit between competing tasks, with personal and business scoring models."
+  "mcp_endpoint": "https://compass.misterautomate.com/api/mcp",
+  "connect": "https://misterautomate.com/agents/compass-signin.json",
+  "summary": "Compass is David Holt's task and work-management system, built to be operated by an agent as much as by a human. It isn't a UI you'd describe to someone — it's an MCP tool surface. Once an agent is connected (see 'connect'), it can read and write a user's real Compass account directly: create tasks, log CRM activity, move content through a pipeline, plan weeks, score priorities, all as tool calls, no page-clicking involved.",
+  "what_a_connected_agent_can_do": {
+    "tasks": "Create, list, update, and delete tasks and subtasks. Score a task's priority. Set its status (see 'status_values' — this is the one piece of Compass's data model an agent needs to know to use the tools correctly).",
+    "crm": "Track people and contacts, log completed activities, create follow-ups, and pull activity reports.",
+    "content_pipeline": "Move a piece of content through topic -> framework -> draft -> final draft -> post, creating and updating each stage.",
+    "frameworks": "Create and manage reusable frameworks/templates for recurring work.",
+    "use_cases": "Track use-case patterns and their instances.",
+    "week_planning": "Define week templates and week block types, and create scheduled blocks of time.",
+    "priority_matrix": "Score competing tasks against personal or business trade-off models.",
+    "onboarding": "Fetch live onboarding guidance immediately after connecting — tells the agent whether this looks like a fresh account worth offering to import tasks into, and how to map them in.",
+    "account": "Check who the connection is authenticated as, review AI activity/settings, and sign out (revokes the token) if the user asks to disconnect."
   },
-  "supporting_features": [
-    "Projects and subtasks",
-    "Contexts and recurring tasks",
-    "Time reports",
-    "Finance module (net worth view: assets, debts, trajectory)"
-  ],
+  "status_values": {
+    "ACTIVE": "Being worked on now.",
+    "WAITING": "Hidden from working views until its follow-up date arrives.",
+    "PARKED": "Deprioritized but retained, not deleted.",
+    "SCHEDULED": "Surfaces on a specific day.",
+    "COMPLETE": "Archived, out of working views.",
+    "IDEA": "Kept separate from active commitments."
+  },
+  "if_not_connected_yet": "Most of the above requires an authenticated MCP connection to this user's account. If you don't have one, see agents/compass-signin.json to establish it via a short pairing handshake — the user clicks one link and approves, no manual token copying.",
   "author": "David Holt",
   "back_to": "https://misterautomate.com/agents/home.json"
 }

@@ -29,8 +29,9 @@
   "projects": [
     {
       "name": "Compass",
-      "description": "A task management system built on subtraction, not addition. Uses dated pages, status-driven visibility, and a unified Today surface.",
+      "description": "A task and work-management system built to be operated by an agent, not just used by a human — connect to it as an MCP tool surface and act directly on a user's real account.",
       "details_json": "https://misterautomate.com/agents/compass.json",
+      "connect": "https://misterautomate.com/agents/compass-signin.json",
       "canonical_html": "https://misterautomate.com/compass/",
       "app_url": "https://compass.misterautomate.com"
     }

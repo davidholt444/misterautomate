@@ -10,13 +10,21 @@
       "method": "POST",
       "url": "https://compass.misterautomate.com/api/agentic-pair/start",
       "body": { "client_label": "string, optional — a human-readable name for what's connecting, e.g. \"Claude Code\"" },
-      "returns": "{ pairing_id, verification_url, expires_in (seconds, 600), poll_url }"
+      "returns": "{ pairing_id, verification_url, expires_in (seconds, 600), poll_url }",
+      "curl": "curl -sS -X POST https://compass.misterautomate.com/api/agentic-pair/start -H \"Content-Type: application/json\" -d '{\"client_label\":\"Claude Code\"}'",
+      "powershell": "Invoke-RestMethod -Method Post -Uri 'https://compass.misterautomate.com/api/agentic-pair/start' -ContentType 'application/json' -Body '{\"client_label\":\"Claude Code\"}'"
     },
     "poll": {
       "method": "GET",
       "url": "Use the poll_url returned by start (or GET https://compass.misterautomate.com/api/agentic-pair/status?pairing_id=<id> directly)",
-      "returns": "{ status: 'pending' | 'denied' | 'expired' | 'delivered', token?, scopes?, agent_instructions? } — token and agent_instructions are only ever included once, on the first read after the user approves. agent_instructions is just-in-time guidance on exactly what to do with the token and how to talk to the user about it right then — follow it even if it repeats something already said here, it's the more current copy. A cached or repeated identical GET can return a stale 'pending' result from your own HTTP client's cache; if you're using a fetch tool with URL-based caching, bust it (e.g. append a throwaway query param) rather than trusting a 'pending' you've already seen once."
+      "returns": "{ status: 'pending' | 'denied' | 'expired' | 'delivered', token?, scopes?, agent_instructions? } — token and agent_instructions are only ever included once, on the first read after the user approves. agent_instructions is just-in-time guidance on exactly what to do with the token and how to talk to the user about it right then — follow it even if it repeats something already said here, it's the more current copy. A cached or repeated identical GET can return a stale 'pending' result from your own HTTP client's cache; if you're using a fetch tool with URL-based caching, bust it (e.g. append a throwaway query param) rather than trusting a 'pending' you've already seen once.",
+      "curl": "curl -sS \"https://compass.misterautomate.com/api/agentic-pair/status?pairing_id=<id>&_=$(date +%s)\"   (the trailing &_=<timestamp> busts any client-side GET cache — always vary it between polls)",
+      "powershell": "Invoke-RestMethod -Uri \"https://compass.misterautomate.com/api/agentic-pair/status?pairing_id=<id>&_=$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds())\""
     }
+  },
+  "http_tips": {
+    "curl_vs_powershell": "Either works — this is a plain HTTPS JSON API, no special headers beyond Content-Type on the POST. If curl fails with a TLS/handshake error (e.g. 'No credentials are available in the security package', 'The SSL connection could not be established'), that's a local certificate-revocation check failing over the network, not this server. Retry curl with --ssl-no-revoke, or just switch to PowerShell's Invoke-RestMethod, which sidesteps that failure mode entirely on Windows and is often the more reliable default there. Don't burn multiple attempts retrying the same failing tool in different shells — one failure is enough signal to switch tools.",
+    "raw_over_summarized": "If your only HTTP access is through a summarizing fetch tool that condenses this JSON into prose, you'll lose exact field names like pairing_id and poll_url that you need verbatim. Prefer a raw curl or Invoke-RestMethod call for anything under 'endpoints' so you get the literal JSON back."
   },
   "mcp_endpoint": "https://compass.misterautomate.com/api/mcp",
   "recommended_agent_workflow": [
