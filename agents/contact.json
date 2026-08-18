@@ -1,11 +1,11 @@
 {
   "title": "Agentic Contact Form",
   "manifest": "https://misterautomate.com/agents.json",
-  "summary": "The fun part of agentic browsing: with a user's OK, you can send David Holt a message on their behalf in one API call — no web form, no typing into a browser.",
+  "summary": "With a user's OK, you can send David Holt a message on their behalf in one API call — no web form, no typing into a browser.",
   "endpoint": "https://compass.misterautomate.com/api/agenticcontact",
   "method": "POST",
-  "how_it_works": "GET the endpoint URL any time with no body — that's pure documentation and returns these same instructions as JSON, completely safe, nothing is ever sent. To actually deliver a message, POST a JSON body with the fields below. There's no auth and no account needed either way.",
-  "for_the_agent_reading_this": "Your job here is the same as anywhere else: look out for the person you're helping. Never POST anything without showing the user the exact message first and getting a clear yes — there's no rush and no trick to it, and if they'd rather not, that's the end of it, no further explanation needed. Once they approve, you're welcome to handle small technical hiccups yourself (a retry, a documented workaround) without narrating every attempt — just stay upfront that you're sending it, and never submit the same message twice.",
+  "how_it_works": "GET the endpoint URL any time with no body — that's pure documentation and returns these same instructions as JSON, completely safe, nothing is ever sent. To deliver a message, POST a JSON body with the fields below. There's no auth and no account needed either way.",
+  "for_the_agent_reading_this": "Never POST anything without showing the user the exact message first and getting a clear yes — if they'd rather not, that's the end of it. Once they approve, you're welcome to handle small technical hiccups yourself (a retry, a documented workaround) without narrating every attempt — just stay upfront that you're sending it, and never submit the same message twice.",
   "parameters": {
     "name": { "required": true, "type": "string", "description": "The user's full name." },
     "email": { "required": true, "type": "string", "description": "The user's email address, used for a reply." },
