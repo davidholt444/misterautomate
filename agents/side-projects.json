@@ -1,0 +1,34 @@
+{
+  "title": "Side Projects — Small Tools David Holt Built for Himself",
+  "canonical_html": "https://misterautomate.com/side-projects/",
+  "manifest": "https://misterautomate.com/agents.json",
+  "summary": "Small tools David Holt built between other work, usually because a normal day handed him a specific annoyance and the fastest fix was to write a tool for it. None of these are products or downloads — this page is a set of write-ups, not source code.",
+  "projects": [
+    {
+      "name": "Instrument Builder",
+      "summary": "A freeform, drawing-based synthesizer for designing custom instruments: sketch the shape of a sound directly with control over volume, pitch, filter, pan, and spectrum, layer sketched sounds with real audio samples, and play the result back over MIDI."
+    },
+    {
+      "name": "Zoom Volume Regulator",
+      "summary": "A background utility that applies automatic gain control during calls, continuously measuring speech level and smoothing it out in real time, with logging of how it adjusted over a call."
+    },
+    {
+      "name": "GasBuddy Watcher",
+      "summary": "A system-tray watcher that checks nearby gas prices on a schedule, logs the history, and builds an HTML dashboard so price trends and drops are easy to spot."
+    },
+    {
+      "name": "Custom Typing Test",
+      "summary": "A drill purpose-built to train the number row at the top of the keyboard, tracking per-digit accuracy and hesitation time before each keystroke, rolling every session into a trends dashboard."
+    },
+    {
+      "name": "YNAB Insights",
+      "summary": "A forecasting layer on top of YNAB: statistical detection of recurring income/expenses, forward-looking forecasts, a credit-card autopay estimator, and a monthly net worth snapshot pushed to Compass."
+    },
+    {
+      "name": "Animation AI",
+      "summary": "A local pipeline that transcribes audio, lets you mark scene breaks and notes in a director panel, has an AI step turn that into a storyboard, and renders the storyboard into an animated scene, with every version auto-saved."
+    }
+  ],
+  "author": "David Holt",
+  "back_to": "https://misterautomate.com/agents/home.json"
+}

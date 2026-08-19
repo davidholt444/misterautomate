@@ -34,6 +34,18 @@
       "connect": "https://misterautomate.com/agents/compass-signin.json",
       "canonical_html": "https://misterautomate.com/compass/",
       "app_url": "https://compass.misterautomate.com"
+    },
+    {
+      "name": "Side Projects",
+      "description": "Small personal tools David built between other work: an instrument-design synth, a call-audio volume regulator, a gas price watcher, a number-row typing drill, a YNAB forecasting layer, and an audio-to-animation pipeline. Write-ups only.",
+      "details_json": "https://misterautomate.com/agents/side-projects.json",
+      "canonical_html": "https://misterautomate.com/side-projects/"
+    },
+    {
+      "name": "Notes",
+      "description": "A running collection of David's own durable lessons on AI, automation, and building things, kept as expandable entries so they outlast the feed they started on.",
+      "details_json": "https://misterautomate.com/agents/notes.json",
+      "canonical_html": "https://misterautomate.com/notes/"
     }
   ],
   "working_principles": [

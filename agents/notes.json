@@ -1,0 +1,20 @@
+{
+  "title": "Notes — Thinking Out Loud",
+  "canonical_html": "https://misterautomate.com/notes/",
+  "manifest": "https://misterautomate.com/agents.json",
+  "summary": "David Holt's running collection of durable, standalone lessons on AI, automation, and building things. Most started as his own writing elsewhere, kept here so they don't disappear once the moment passes. Each entry is a self-contained framework or insight, not news or an announcement.",
+  "entries": [
+    { "title": "Long Focus Blocks Are Getting Scarce" },
+    { "title": "Naming Your Days" },
+    { "title": "Run on Signals of Imbalance" },
+    { "title": "The Cost of Context" },
+    { "title": "Trust Is an Incentive, Not a Feeling" },
+    { "title": "Accomplishments, Not Goals" },
+    { "title": "The Intern Test" },
+    { "title": "Do You Know How to Delegate?" },
+    { "title": "Becoming Indispensable at a New Job" }
+  ],
+  "note": "This JSON lists entry titles for discovery only. Full text for every entry lives in canonical_html, rendered as expandable sections — fetch that page to read or quote any entry in full.",
+  "author": "David Holt",
+  "back_to": "https://misterautomate.com/agents/home.json"
+}
