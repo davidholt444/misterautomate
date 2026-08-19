@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XNCYE05CN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1XNCYE05CN');
+  </script>
+  <meta charset="UTF-8" />
+  <title>Side Projects | David Holt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A handful of small tools David Holt built for himself — a synth for designing instruments, an automatic Zoom volume regulator, a gas price watcher, a typing test, and an audio-to-animation pipeline." />
+  <link rel="canonical" href="https://misterautomate.com/side-projects/" />
+  <link rel="icon" href="../icon_square.ico" type="image/x-icon" />
+  <style>
+    :root {
+      --bg: #edf1f4;
+      --panel: rgba(255, 255, 255, 0.88);
+      --ink: #13232d;
+      --muted: #5a6a74;
+      --line: rgba(19, 35, 45, 0.12);
+      --accent: #8b5e3c;
+      --accent-soft: rgba(139, 94, 60, 0.12);
+      --deep: #1d3442;
+      --shadow: 0 24px 70px rgba(19, 35, 45, 0.12);
+      --radius-xl: 34px;
+      --radius-lg: 22px;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      line-height: 1.68;
+      background:
+        radial-gradient(circle at top left, rgba(139, 94, 60, 0.12), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(29, 52, 66, 0.12), transparent 30%),
+        linear-gradient(180deg, #f6f8fa 0%, var(--bg) 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(6px);
+    }
+
+    body::before {
+      width: 380px;
+      height: 380px;
+      top: -140px;
+      right: -120px;
+      background: radial-gradient(circle at 35% 35%, rgba(139, 94, 60, 0.18), transparent 68%);
+    }
+
+    body::after {
+      width: 420px;
+      height: 420px;
+      left: -160px;
+      bottom: -180px;
+      background: radial-gradient(circle at 50% 50%, rgba(29, 52, 66, 0.14), transparent 72%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .agent-banner {
+      background: var(--accent-soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .agent-banner-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 18px;
+      text-align: center;
+    }
+
+    .agent-banner-label {
+      margin: 0;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--deep);
+    }
+
+    .agent-banner-prompt {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .agent-banner-prompt code {
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      font-size: 0.8rem;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 10px;
+    }
+
+    .agent-banner-copy {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--deep);
+      background: transparent;
+      color: var(--deep);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .agent-banner-copy:hover,
+    .agent-banner-copy.is-copied {
+      background: var(--deep);
+      color: #ffffff;
+    }
+
+    @media (max-width: 720px) {
+      .agent-banner-inner {
+        padding: 10px 18px;
+      }
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 24px 104px;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 8px 0 32px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 4px;
+      font-family: "Fraunces", "Georgia", serif;
+    }
+
+    .brand strong {
+      font-size: 1.45rem;
+      font-weight: 600;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: flex-end;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a,
+    .nav summary {
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .nav a:hover,
+    .nav summary:hover,
+    .nav details[open] summary {
+      color: var(--ink);
+      border-color: var(--accent);
+    }
+
+    .nav summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .nav details {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 220px;
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 40px rgba(19, 35, 45, 0.14);
+      display: grid;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border-bottom: 0;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(19, 35, 45, 0.05);
+    }
+
+    .hero,
+    .panel,
+    .callout {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 46px;
+      display: grid;
+      gap: 18px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Fraunces", "Georgia", serif;
+      letter-spacing: 0.01em;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 4.6vw, 4.4rem);
+      line-height: 1;
+      max-width: 13ch;
+    }
+
+    .lead,
+    .section-intro {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .section {
+      margin-top: 56px;
+      display: grid;
+      gap: 18px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.4vw, 2rem);
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .panel .label {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .panel h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .list li { margin: 6px 0; }
+
+    .tag-list {
+      list-style: none;
+      margin: 4px 0 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-list li {
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(19, 35, 45, 0.05);
+      color: var(--ink);
+      font-size: 0.86rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 19px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button.primary {
+      background: var(--deep);
+      color: #ffffff;
+      box-shadow: 0 16px 34px rgba(29, 52, 66, 0.24);
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .callout {
+      border-radius: var(--radius-xl);
+      padding: 38px;
+      background: linear-gradient(140deg, rgba(29, 52, 66, 0.98), rgba(19, 35, 45, 0.98));
+      color: #ffffff;
+      display: grid;
+      gap: 14px;
+    }
+
+    .callout h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .callout p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 52ch;
+    }
+
+    .callout .button.secondary {
+      background: transparent;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .fade-delay-1 { animation-delay: 0.08s; }
+    .fade-delay-2 { animation-delay: 0.16s; }
+    .fade-delay-3 { animation-delay: 0.24s; }
+    .fade-delay-4 { animation-delay: 0.32s; }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .panel,
+      .callout {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+
+      .dropdown-menu {
+        position: static;
+        margin-top: 8px;
+        min-width: 0;
+      }
+
+      .page {
+        padding-inline: 18px;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="agent-banner">
+    <div class="agent-banner-inner">
+      <p class="agent-banner-label">🤖 Agentic browsing available — paste the following prompt into Claude Code (or similar)</p>
+      <div class="agent-banner-prompt">
+        <code id="agent-prompt-text">Navigate to https://misterautomate.com/agents.json. Don't use any human browsers. This is an agentic website.</code>
+        <button type="button" class="agent-banner-copy" onclick="copyAgentPrompt(this)">Copy prompt</button>
+      </div>
+    </div>
+  </div>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="../">
+        <strong>David Holt</strong>
+        <span>AI Solutions Engineer | Mister Automate</span>
+      </a>
+      <nav class="nav">
+        <a href="../#experience">Experience</a>
+        <details>
+          <summary>Projects</summary>
+          <div class="dropdown-menu">
+            <a href="../compass/">Compass</a>
+            <a href="../side-projects/">Side Projects</a>
+          </div>
+        </details>
+        <a href="https://www.linkedin.com/in/david-h-27397413a/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow fade-delay-1">Side Projects</p>
+        <h1 class="fade-delay-2">Small tools, built for one user</h1>
+        <p class="lead fade-delay-3">Between the client work, I build small things for myself — usually because a normal day handed me a specific annoyance and the fastest fix was to write a tool for it. None of these are products. They're a look at how I think when the only stakeholder is me.</p>
+        <div class="cta-row fade-delay-4">
+          <a class="button secondary" href="../#projects">Back to projects</a>
+        </div>
+      </section>
+
+      <section class="section fade-delay-1">
+        <h2>Instrument Builder</h2>
+        <div class="panel">
+          <div class="label">Audio</div>
+          <h3>A freeform synth for designing instruments, not just playing them</h3>
+          <p>Instead of picking a preset and tweaking a couple of knobs, this is a drawing-based synthesizer — you sketch the shape of a sound directly, with full control over volume, pitch, filter, pan, and spectrum across the length of a note. It supports layering multiple sketched sounds together, dropping in real audio samples alongside the synthesized ones, and playing the result back over MIDI, so a custom instrument you designed by hand can actually be played like one.</p>
+          <ul class="tag-list" aria-label="Instrument Builder concepts">
+            <li>Freeform sound drawing</li>
+            <li>Layered synthesis</li>
+            <li>Real sample support</li>
+            <li>MIDI playback</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section fade-delay-2">
+        <h2>Zoom Volume Regulator</h2>
+        <div class="panel">
+          <div class="label">Calls</div>
+          <h3>An automatic gain control that keeps your mic level steady</h3>
+          <p>Built because the same call would have one person too quiet and another too loud, and manually riding the volume mid-meeting is not a great use of attention. This runs in the background during a call, continuously measuring speech level and applying automatic gain control to smooth it out in real time, with logging to see how it's adjusting over the course of a call.</p>
+          <ul class="tag-list" aria-label="Zoom Volume Regulator concepts">
+            <li>Automatic gain control</li>
+            <li>Real-time audio monitoring</li>
+            <li>Background utility</li>
+            <li>Session logging</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section fade-delay-3">
+        <h2>GasBuddy Watcher</h2>
+        <div class="panel">
+          <div class="label">Utility</div>
+          <h3>A tray app that watches nearby gas prices so you don't have to</h3>
+          <p>A lightweight watcher that sits in the system tray, checks nearby gas prices on a schedule, and logs the changes over time. It builds a simple dashboard out of that history so price trends and drops are easy to spot at a glance, instead of opening an app and manually checking every station.</p>
+          <ul class="tag-list" aria-label="GasBuddy Watcher concepts">
+            <li>Background tray watcher</li>
+            <li>Price history logging</li>
+            <li>Generated HTML dashboard</li>
+            <li>Drop detection</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section fade-delay-4">
+        <h2>Custom Typing Test</h2>
+        <div class="panel">
+          <div class="label">Practice</div>
+          <h3>A drill built for one specific weak spot: the number row</h3>
+          <p>Not a general typing test — this one is purpose-built to train the number row at the top of the keyboard, the part of touch typing most people never actually drill. Each timed session tracks performance per digit, down to hesitation time before each keystroke, not just whether you got it right. Every run generates its own HTML report, and those reports roll up into a trends dashboard, so it's possible to see, digit by digit, which numbers are still slow and whether the hesitation is actually going down over time.</p>
+          <ul class="tag-list" aria-label="Custom Typing Test concepts">
+            <li>Number-row specific drills</li>
+            <li>Per-digit accuracy</li>
+            <li>Hesitation time per keystroke</li>
+            <li>Trends dashboard across sessions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section fade-delay-4">
+        <h2>YNAB Insights</h2>
+        <div class="panel">
+          <div class="label">Finance</div>
+          <h3>A forecasting layer on top of a budget, not just a ledger</h3>
+          <p>Built on top of YNAB (You Need A Budget) to answer a question the budget itself doesn't: what's coming next. A statistical detector scans transaction history — no AI involved here, just pattern analysis — and picks out recurring income and bills on their own, then projects them forward as forecasts. A separate credit-card layer tracks each card against its payment account and estimates the next autopay amount before the statement even closes, growing the estimate as new charges land. When a forecasted transaction actually shows up, it's auto-matched against the real one by date, amount, and payee. On top of all that, a monthly routine reconciles every account and pushes a net worth snapshot out to Compass, so net worth becomes a tracked trend line instead of a once-in-a-while gut check.</p>
+          <ul class="tag-list" aria-label="YNAB Insights concepts">
+            <li>Recurring income/expense detection</li>
+            <li>Forward-looking forecasts</li>
+            <li>Credit card autopay estimation</li>
+            <li>Monthly net worth snapshot</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section fade-delay-4">
+        <h2>Animation AI</h2>
+        <div class="panel">
+          <div class="label">Pipeline</div>
+          <h3>Turning an audio track into an animated scene</h3>
+          <p>An end-to-end local pipeline for going from raw audio to an animated video. It transcribes the audio, then opens a "director panel" where you mark scene breaks and drop in notes on what should happen where. From there, an AI step turns those notes into a storyboard, and a final step renders that storyboard into an actual animated scene — with every version auto-saved along the way so nothing gets lost mid-iteration.</p>
+          <ul class="tag-list" aria-label="Animation AI concepts">
+            <li>Audio transcription</li>
+            <li>Director annotation panel</li>
+            <li>AI-generated storyboarding</li>
+            <li>Versioned scene snapshots</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="callout fade-delay-4">
+        <h2>Contact</h2>
+        <p>Want to hear more about any of these? Reach out on LinkedIn.</p>
+        <div class="cta-row">
+          <a class="button primary" href="https://www.linkedin.com/in/david-h-27397413a/">Open LinkedIn</a>
+          <a class="button secondary" href="../#projects">Back to projects</a>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    function copyAgentPrompt(btn) {
+      var text = document.getElementById('agent-prompt-text').textContent;
+      var original = btn.textContent;
+      function onCopied() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('is-copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('is-copied');
+        }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onCopied).catch(function () {
+          fallbackCopy(text);
+          onCopied();
+        });
+      } else {
+        fallbackCopy(text);
+        onCopied();
+      }
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+    }
+  </script>
+</body>
+</html>
