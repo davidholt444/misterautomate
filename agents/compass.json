@@ -25,7 +25,7 @@
     "COMPLETE": "Archived, out of working views.",
     "IDEA": "Kept separate from active commitments."
   },
-  "if_not_connected_yet": "Most of the above requires an authenticated MCP connection to this user's account. If you don't have one, see agents/compass-signin.json to establish it via a short pairing handshake — the user clicks one link and approves, no manual token copying.",
+  "if_not_connected_yet": "Most of the above requires an authenticated MCP connection to this user's account. If you don't have one, the simple route is adding Compass as a connector directly in your client's own settings, pointed at mcp_endpoint — the client handles sign-in itself. See agents/compass-signin.json for that walkthrough, plus an alternative agentic pairing option for chat surfaces without connector settings of their own.",
   "author": "David Holt",
   "back_to": "https://misterautomate.com/agents/home.json"
 }

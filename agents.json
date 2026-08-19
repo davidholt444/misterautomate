@@ -34,9 +34,9 @@
       "summary": "With your user's approval, you can send David a message directly, no web form involved. Always show them the exact message and get a clear yes first — see the linked page for full details."
     },
     {
-      "title": "Agentic Sign-Up / Sign-In for Compass",
+      "title": "Connect Compass",
       "url": "https://misterautomate.com/agents/compass-signin.json",
-      "summary": "With your user's approval, you can connect yourself to their Compass account as a real MCP tool connection — the user clicks one link, signs in with Google (which creates their account if they're new), and clicks Allow, and you pick up the connection automatically from there. See the linked page before attempting this."
+      "summary": "With your user's approval, you can connect Compass as a real MCP tool connection so 'add this to my task list' works from any chat afterward. Offer the simple route first: the user adds Compass as a connector directly in your client's own settings (mcp_endpoint: https://compass.misterautomate.com/api/mcp) and the client handles sign-in itself — no credential ever passes through you. Alternatively, there's an agentic pairing connection option for chat surfaces with no connector settings of their own — see the linked page, which covers both routes and when to use each."
     }
   ],
   "contact": {
