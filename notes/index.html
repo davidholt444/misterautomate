@@ -243,10 +243,10 @@
     }
 
     .hero {
-      border-radius: var(--radius-xl);
-      padding: 46px;
+      border-radius: var(--radius-lg);
+      padding: 28px 34px;
       display: grid;
-      gap: 18px;
+      gap: 6px;
       animation: fadeUp 0.8s ease-out both;
     }
 
@@ -268,20 +268,19 @@
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2.6rem, 4.4vw, 3.8rem);
-      line-height: 1.02;
-      max-width: 13ch;
+      font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+      line-height: 1.1;
     }
 
     .lead {
       margin: 0;
       max-width: 66ch;
       color: var(--muted);
-      font-size: 1.08rem;
+      font-size: 0.98rem;
     }
 
     .feed {
-      margin-top: 48px;
+      margin-top: 32px;
       display: grid;
       gap: 14px;
     }
@@ -504,7 +503,6 @@
       <section class="hero">
         <p class="eyebrow fade-delay-1">Notes</p>
         <h1>Thinking out loud</h1>
-        <p class="lead">Lessons on AI, automation, and building things. Most of these started as LinkedIn posts. This is where they live once the feed moves on.</p>
       </section>
 
       <section class="feed" id="feed"></section>
