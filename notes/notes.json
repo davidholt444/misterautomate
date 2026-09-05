@@ -55,7 +55,7 @@
     "body": [
       "What's actually the bottleneck? It depends on where things are really waiting. If the customer is waiting, that's an operational bottleneck. If operations can clearly handle more, maybe the constraint is sales. And if the business is pointed in the wrong direction entirely, it doesn't matter how hard any one team is working. You can't rerun the business under a different decision to find out, so effort alone can't tell you where the real constraint is.",
       "What can tell you is imbalance. It works like inventory: too low and things break, too high and finance gets upset. Either extreme produces its own kind of friction, and that friction is the signal. The goal is building systems that amplify the under-represented signal instead of letting it go unnoticed until it's a crisis.",
-      "This is where AI agents earn their keep. Have one research the biggest risks to an idea ahead of time and pre-plan the pivot for each one. Once you already know what you'd do if a given risk hit, that risk stops being nearly as risky, and that's what actually opens room for bigger bets. Visibility into your real constraints, not just faster execution, is one of the biggest levers in a business."
+      "This is where AI agents earn their Keep. Have one research the biggest risks to an idea ahead of time and pre-plan the pivot for each one. Once you already know what you'd do if a given risk hit, that risk stops being nearly as risky, and that's what actually opens room for bigger bets. Visibility into your real constraints, not just faster execution, is one of the biggest levers in a business."
     ]
   },
   {
@@ -72,6 +72,14 @@
       "For small tasks, a 15-minute timer works great. Decide what you're going to do with the 15 minutes, commit to finishing it in that window, and you knock it out.",
       "That method falls apart for real deep work. I recently spent three hours on one task, start to finish, no restarts. It felt different than usual, mostly because it's rare now. I'm convinced I was more effective working it straight through than I would have been picking it up and putting it down five separate times.",
       "AI makes this harder to protect. Jumping between AI tools and tasks all day is genuinely useful for a lot of work, but some work still needs a long, uninterrupted block of human focus, and that kind of block is exactly what a day full of quick AI exchanges tends to erode."
+    ]
+  },
+  {
+    "title": "Auto-Publishing to My Website",
+    "body": [
+      "I just set things up so I can talk into a custom GPT and publish a note directly to my website. An idea can now go from something I'm thinking about to something published here with almost no friction.",
+      "This note itself is the first real test. I'm talking through the idea, turning it into a note, and sending it to the site through the same workflow I want to use going forward. I'm excited to see it actually work.",
+      "The easier I make the pathway from having an idea to publishing it, the more likely I am to share the small thoughts and lessons that would otherwise never make it out of my head. I'm excited to see what I can share and how useful I can make this website over time."
     ]
   }
 ]
