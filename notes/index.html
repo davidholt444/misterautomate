@@ -352,6 +352,24 @@
       opacity: 0.86;
     }
 
+    .note-body h3 {
+      margin: 6px 0 0;
+      font-size: 1.02rem;
+      color: var(--ink);
+    }
+
+    .note-body ul {
+      margin: 0;
+      padding-left: 1.2em;
+      display: grid;
+      gap: 8px;
+    }
+
+    .note-body ul li {
+      color: var(--ink);
+      opacity: 0.86;
+    }
+
     .note-date {
       margin: 4px 0 0;
       color: var(--muted);
@@ -574,7 +592,12 @@
           return b.date.localeCompare(a.date);
         });
         feed.innerHTML = sorted.map(function (note) {
-          var paras = (note.body || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+          var paras = (note.body || []).map(function (item) {
+            if (typeof item === 'string') return '<p>' + esc(item) + '</p>';
+            if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
+            if (item && item.list) return '<ul>' + item.list.map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul>';
+            return '';
+          }).join('');
           var date = note.date ? '<p class="note-date">' + esc(note.date) + '</p>' : '';
           return (
             '<details class="note">' +
