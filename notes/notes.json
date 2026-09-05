@@ -201,5 +201,15 @@
       "So the people who use AI to learn something new every single day aren't getting ahead a little. They're compounding an advantage daily, against people using the same AI to avoid learning at all. That gap isn't fair, and it isn't going to close. It's going to get very visible, very fast."
     ],
     "date": "2026.08.19"
+  },
+  {
+    "title": "AI Had Access to Everything, It Still Analyzed Almost Nothing",
+    "body": [
+      "I asked AI to deeply analyze a large connected dataset. Every source was plugged in, full access, on paper. It could see everything, in theory.",
+      "It handed back an analysis built on a tiny slice of what was actually available. Maybe the model got lazy. Maybe it just did exactly what it was told with exactly what it had. From the outside, those look identical.",
+      "I only caught it because I knew what was happening in the background. Most people wouldn't. Being wired up to a data source doesn't mean that data actually reaches the context window where the model reasons. If it never gets pulled in, it's invisible, no matter how many integrations you've got.",
+      "You don't have to know how the model reasons. You do have to know what it's actually working with. Otherwise you're trusting output that was built on input you never checked."
+    ],
+    "date": "2026.08.31"
   }
 ]
