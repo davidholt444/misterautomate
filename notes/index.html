@@ -389,6 +389,10 @@
       opacity: 0.86;
     }
 
+    .note-body ul ul {
+      margin-top: 8px;
+    }
+
     .callout {
       margin-top: 56px;
       border-radius: var(--radius-xl);
@@ -605,10 +609,18 @@
           return b.date.localeCompare(a.date);
         });
         feed.innerHTML = sorted.map(function (note) {
+          function renderListItem(li) {
+            if (typeof li === 'string') return '<li>' + esc(li) + '</li>';
+            if (li && li.text) {
+              var sub = li.sublist ? '<ul>' + li.sublist.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : '';
+              return '<li>' + esc(li.text) + sub + '</li>';
+            }
+            return '';
+          }
           var paras = (note.body || []).map(function (item) {
             if (typeof item === 'string') return '<p>' + esc(item) + '</p>';
             if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
-            if (item && item.list) return '<ul>' + item.list.map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul>';
+            if (item && item.list) return '<ul>' + item.list.map(renderListItem).join('') + '</ul>';
             return '';
           }).join('');
           var date = note.date ? '<span class="note-date">' + esc(note.date) + '</span>' : '';
