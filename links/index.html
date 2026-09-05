@@ -10,10 +10,10 @@
     gtag('config', 'G-1XNCYE05CN');
   </script>
   <meta charset="UTF-8" />
-  <title>Notes | David Holt</title>
+  <title>Links | David Holt</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="David Holt's notes on AI, automation, and building things. Lessons pulled from what he's already written." />
-  <link rel="canonical" href="https://misterautomate.com/notes/" />
+  <meta name="description" content="A running list of books, videos, articles, and sites David Holt finds worth sharing." />
+  <link rel="canonical" href="https://misterautomate.com/links/" />
   <link rel="icon" href="../icon_square.ico" type="image/x-icon" />
   <style>
     :root {
@@ -238,16 +238,11 @@
       background: rgba(19, 35, 45, 0.05);
     }
 
-    .hero,
-    .panel,
-    .callout {
+    .hero {
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
       backdrop-filter: blur(8px);
-    }
-
-    .hero {
       border-radius: var(--radius-lg);
       padding: 28px 34px;
       display: grid;
@@ -264,9 +259,7 @@
       font-weight: 600;
     }
 
-    h1,
-    h2,
-    h3 {
+    h1, h2, h3 {
       font-family: "Fraunces", "Georgia", serif;
       letter-spacing: 0.01em;
     }
@@ -277,186 +270,60 @@
       line-height: 1.1;
     }
 
-    .lead {
-      margin: 0;
-      max-width: 66ch;
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
     .feed {
       margin-top: 32px;
       display: grid;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .note {
+    .link-card {
+      display: block;
       border-radius: var(--radius-lg);
       background: var(--panel);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
       backdrop-filter: blur(8px);
-      overflow: hidden;
+      padding: 22px 26px;
       animation: fadeUp 0.7s ease-out both;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .note summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 26px 30px;
-      transition: background 0.2s ease;
+    .link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(19, 35, 45, 0.14);
+      border-color: rgba(139, 94, 60, 0.28);
     }
 
-    .note summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .note summary:hover {
-      background: rgba(19, 35, 45, 0.03);
-    }
-
-    .note[open] summary {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .note summary h2 {
-      margin: 0;
-      font-size: 1.28rem;
+    .link-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
       line-height: 1.3;
     }
 
-    .summary-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-shrink: 0;
+    .link-card h2::after {
+      content: " ↗";
+      color: var(--accent);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
     }
 
-    .note-date {
+    .link-card p {
+      margin: 0;
+      color: var(--ink);
+      opacity: 0.86;
+    }
+
+    .empty-state {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 40px 30px;
+      text-align: center;
       color: var(--muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
-
-    .note .chevron {
-      flex-shrink: 0;
-      width: 11px;
-      height: 11px;
-      margin-top: 2px;
-      border-right: 2px solid var(--accent);
-      border-bottom: 2px solid var(--accent);
-      transform: rotate(45deg);
-      transition: transform 0.25s ease;
-    }
-
-    .note[open] .chevron {
-      transform: rotate(225deg);
-      margin-top: -2px;
-    }
-
-    .note-body {
-      padding: 6px 30px 30px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .note-body p {
-      margin: 0;
-      color: var(--ink);
-      opacity: 0.86;
-    }
-
-    .note-body h3 {
-      margin: 6px 0 0;
-      font-size: 1.02rem;
-      color: var(--ink);
-    }
-
-    .note-body ul {
-      margin: 0;
-      padding-left: 1.2em;
-      display: grid;
-      gap: 8px;
-    }
-
-    .note-body ul li {
-      color: var(--ink);
-      opacity: 0.86;
-    }
-
-    .callout {
-      margin-top: 56px;
-      border-radius: var(--radius-xl);
-      padding: 38px;
-      background: linear-gradient(140deg, rgba(29, 52, 66, 0.98), rgba(19, 35, 45, 0.98));
-      color: #ffffff;
-      display: grid;
-      gap: 14px;
-    }
-
-    .callout h2 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    .callout p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 52ch;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 19px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .button:hover { transform: translateY(-2px); }
-
-    .button.primary {
-      background: var(--deep);
-      color: #ffffff;
-      box-shadow: 0 16px 34px rgba(29, 52, 66, 0.24);
-    }
-
-    .button.secondary {
-      background: #ffffff;
-      color: var(--ink);
-      border-color: var(--line);
-    }
-
-    .callout .button.secondary {
-      background: transparent;
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.28);
     }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -489,9 +356,8 @@
       }
 
       .hero,
-      .note,
-      .callout {
-        padding: 26px;
+      .link-card {
+        padding: 24px;
       }
     }
   </style>
@@ -524,28 +390,19 @@
             <a href="../side-projects/">Side Projects</a>
           </div>
         </details>
-        <a href="../notes/" class="active">Notes</a>
-        <a href="../links/">Links</a>
+        <a href="../notes/">Notes</a>
+        <a href="../links/" class="active">Links</a>
         <a href="https://www.linkedin.com/in/david-h-27397413a/">Contact</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
-        <p class="eyebrow fade-delay-1">Notes</p>
-        <h1>Thinking out loud</h1>
+        <p class="eyebrow">Links</p>
+        <h1>Worth your time</h1>
       </section>
 
       <section class="feed" id="feed"></section>
-
-      <section class="callout">
-        <h2>More where this came from</h2>
-        <p>This is a first pass. There's a much larger backlog to pull from. Follow along on LinkedIn for what's current.</p>
-        <div class="cta-row">
-          <a class="button primary" href="https://www.linkedin.com/in/david-h-27397413a/">Open LinkedIn</a>
-          <a class="button secondary" href="../#projects">Back to projects</a>
-        </div>
-      </section>
     </main>
   </div>
   <script>
@@ -590,38 +447,25 @@
         .replace(/"/g, '&quot;');
     }
 
-    fetch('notes.json')
+    fetch('links.json')
       .then(function (r) { return r.json(); })
-      .then(function (notes) {
+      .then(function (links) {
         var feed = document.getElementById('feed');
-        if (!notes.length) {
-          feed.innerHTML = '<p class="lead">No notes yet.</p>';
+        if (!links.length) {
+          feed.innerHTML = '<div class="empty-state">No links yet. Check back soon.</div>';
           return;
         }
-        var sorted = notes.slice().sort(function (a, b) {
-          if (!a.date && !b.date) return 0;
-          if (!a.date) return 1;
-          if (!b.date) return -1;
-          return b.date.localeCompare(a.date);
-        });
-        feed.innerHTML = sorted.map(function (note) {
-          var paras = (note.body || []).map(function (item) {
-            if (typeof item === 'string') return '<p>' + esc(item) + '</p>';
-            if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
-            if (item && item.list) return '<ul>' + item.list.map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul>';
-            return '';
-          }).join('');
-          var date = note.date ? '<span class="note-date">' + esc(note.date) + '</span>' : '';
+        feed.innerHTML = links.slice().reverse().map(function (link) {
           return (
-            '<details class="note">' +
-              '<summary><h2>' + esc(note.title) + '</h2><span class="summary-right">' + date + '<span class="chevron" aria-hidden="true"></span></span></summary>' +
-              '<div class="note-body">' + paras + '</div>' +
-            '</details>'
+            '<a class="link-card" href="' + esc(link.url) + '" target="_blank" rel="noopener">' +
+              '<h2>' + esc(link.title) + '</h2>' +
+              '<p>' + esc(link.blurb) + '</p>' +
+            '</a>'
           );
         }).join('');
       })
       .catch(function () {
-        document.getElementById('feed').innerHTML = '<p class="lead">Could not load notes.</p>';
+        document.getElementById('feed').innerHTML = '<div class="empty-state">Could not load links.</div>';
       });
   </script>
 </body>
