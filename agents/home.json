@@ -46,6 +46,12 @@
       "description": "A running collection of David's own durable lessons on AI, automation, and building things, kept as expandable entries so they outlast the feed they started on.",
       "details_json": "https://misterautomate.com/agents/notes.json",
       "canonical_html": "https://misterautomate.com/notes/"
+    },
+    {
+      "name": "Links",
+      "description": "A running list of links David finds worth sharing: books, videos, articles, sites, no categorization, flat list.",
+      "details_json": "https://misterautomate.com/agents/links.json",
+      "canonical_html": "https://misterautomate.com/links/"
     }
   ],
   "working_principles": [

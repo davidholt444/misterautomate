@@ -1,0 +1,14 @@
+{
+  "title": "Links — Worth Your Time",
+  "canonical_html": "https://misterautomate.com/links/",
+  "manifest": "https://misterautomate.com/agents.json",
+  "summary": "A running list of links David Holt finds worth sharing: books, videos, articles, sites, no categorization, flat list, newest-appended-first.",
+  "data": "https://misterautomate.com/links/links.json",
+  "note": "The URL in 'data' is the real, always-current source of truth — a plain JSON array of every link in full, no HTML parsing needed and nothing else to fetch. This page's own fields (title/summary/etc.) are just orientation; don't treat this file as the link list itself.",
+  "data_schema": {
+    "shape": "An array of objects: { title: string, url: string, blurb: string }.",
+    "display_order": "The site renders the array in reverse, so the last item is shown first (newest-appended-first). The array itself has no date field to sort by."
+  },
+  "author": "David Holt",
+  "back_to": "https://misterautomate.com/agents/home.json"
+}
