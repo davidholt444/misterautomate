@@ -371,6 +371,17 @@
       opacity: 0.86;
     }
 
+    .note-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(139, 94, 60, 0.4);
+      opacity: 1;
+    }
+
+    .note-body a:hover {
+      text-decoration-color: var(--accent);
+    }
+
     .note-body h3 {
       margin: 6px 0 0;
       font-size: 1.02rem;
@@ -594,6 +605,20 @@
         .replace(/"/g, '&quot;');
     }
 
+    function renderInline(str) {
+      var re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+      var result = '';
+      var lastIndex = 0;
+      var m;
+      while ((m = re.exec(str)) !== null) {
+        result += esc(str.slice(lastIndex, m.index));
+        result += '<a href="' + esc(m[2]) + '" target="_blank" rel="noopener">' + esc(m[1]) + '</a>';
+        lastIndex = re.lastIndex;
+      }
+      result += esc(str.slice(lastIndex));
+      return result;
+    }
+
     fetch('notes.json')
       .then(function (r) { return r.json(); })
       .then(function (notes) {
@@ -610,15 +635,15 @@
         });
         feed.innerHTML = sorted.map(function (note) {
           function renderListItem(li) {
-            if (typeof li === 'string') return '<li>' + esc(li) + '</li>';
+            if (typeof li === 'string') return '<li>' + renderInline(li) + '</li>';
             if (li && li.text) {
-              var sub = li.sublist ? '<ul>' + li.sublist.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : '';
-              return '<li>' + esc(li.text) + sub + '</li>';
+              var sub = li.sublist ? '<ul>' + li.sublist.map(function (s) { return '<li>' + renderInline(s) + '</li>'; }).join('') + '</ul>' : '';
+              return '<li>' + renderInline(li.text) + sub + '</li>';
             }
             return '';
           }
           var paras = (note.body || []).map(function (item) {
-            if (typeof item === 'string') return '<p>' + esc(item) + '</p>';
+            if (typeof item === 'string') return '<p>' + renderInline(item) + '</p>';
             if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
             if (item && item.list) return '<ul>' + item.list.map(renderListItem).join('') + '</ul>';
             return '';
