@@ -11,9 +11,9 @@
   {
     "title": "Do You Know How to Delegate?",
     "body": [
-      "I have an AI note taker in every meeting. I don't read the notes. That sounds like it defeats the purpose. It doesn't. I use it to pull the action items. Most of the time, what actually happened in a meeting matters less than what needs to happen next.",
-      "Here's the mental model I use when I train people who've never delegated anything to AI before. Think of it like a smart kid just walked in to help you. They can write, research, work in Excel, whatever you need. But they know nothing about your company, your situation, or what \"good\" looks like for you. You can outsource your thinking to them. You can't outsource your understanding.",
-      "A real example from a couple weeks ago: I needed to schedule two meetings with my manager after a 1:1. I told the AI what the meetings were about, and it checked both our calendars and found times that worked. It didn't just book them. It made me approve each one individually before it touched the calendar. Most of the value isn't in the AI acting alone. It's in how much faster the boring part happens before you make the actual decision."
+      "The best mental model I've found for delegating to AI: imagine a smart kid just walked in to help you. They can write, research, work a spreadsheet, whatever you need. But they know nothing about your company, your situation, or what \"good\" looks like for you.",
+      "You can outsource your thinking to them. You can't outsource your understanding. If you don't know what a good result looks like yourself, no amount of prompting fixes that.",
+      "Build the understanding first. Then delegate."
     ],
     "date": "2026.08.12"
   },
