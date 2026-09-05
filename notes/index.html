@@ -353,6 +353,13 @@
       opacity: 0.86;
     }
 
+    .note-date {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
     .callout {
       margin-top: 56px;
       border-radius: var(--radius-xl);
@@ -562,12 +569,19 @@
           feed.innerHTML = '<p class="lead">No notes yet.</p>';
           return;
         }
-        feed.innerHTML = notes.slice().reverse().map(function (note) {
+        var sorted = notes.slice().sort(function (a, b) {
+          if (!a.date && !b.date) return 0;
+          if (!a.date) return 1;
+          if (!b.date) return -1;
+          return b.date.localeCompare(a.date);
+        });
+        feed.innerHTML = sorted.map(function (note) {
           var paras = (note.body || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+          var date = note.date ? '<p class="note-date">' + esc(note.date) + '</p>' : '';
           return (
             '<details class="note">' +
               '<summary><h2>' + esc(note.title) + '</h2><span class="chevron" aria-hidden="true"></span></summary>' +
-              '<div class="note-body">' + paras + '</div>' +
+              '<div class="note-body">' + paras + date + '</div>' +
             '</details>'
           );
         }).join('');
