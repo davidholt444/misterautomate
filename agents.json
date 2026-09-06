@@ -12,7 +12,7 @@
     "general": "If a WebFetch-style summarizing tool is all you have and it condenses the JSON too much to see exact field names, prefer a raw HTTP call (curl or PowerShell above) instead — these pages are built to be read as literal JSON, not summarized prose."
   },
   "presentation_guidance": "If the user's request is general browsing or exploration ('what's here', 'show me around', 'what can I do on this site'), do not dump this manifest's raw JSON at them. Present 'pages' and 'actions' as a short, friendly, human-readable overview — plain sentences or a simple list built from each entry's 'title' and 'summary' — the way you'd describe a site map to a person, not a developer. Only show raw JSON, URLs, or field names if the user explicitly asks for them.",
-  "last_updated": "2026-09-05",
+  "last_updated": "2026-09-06",
   "pages": [
     {
       "title": "Home",

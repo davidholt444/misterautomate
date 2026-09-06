@@ -3,15 +3,20 @@
   "canonical_html": "https://misterautomate.com/notes/",
   "manifest": "https://misterautomate.com/agents.json",
   "summary": "David Holt's running collection of durable, standalone lessons on AI, automation, and building things. Most started as his own writing elsewhere, kept here so they don't disappear once the moment passes. Each entry is a self-contained framework or insight, not news or an announcement.",
-  "data": "https://misterautomate.com/notes/notes.json",
-  "note": "The URL in 'data' is the real, always-current source of truth — a plain JSON array of every note in full, no HTML parsing needed and nothing else to fetch. This page's own fields (title/summary/etc.) are just orientation; don't treat this file as the note list itself.",
-  "data_schema": {
-    "shape": "An array of objects: { title: string, body: array, date?: string }.",
-    "title": "The note's headline.",
+  "index": "https://misterautomate.com/notes/notes-index.json",
+  "note": "This is a two-step data source, not a single file. 'index' is the always-current list of every note's slug/title/date, in full. To read one note's actual content, fetch https://misterautomate.com/notes/entries/<slug>.json using the slug from the index. This page's own fields (title/summary/etc.) are just orientation; the index and entry files are the real source of truth.",
+  "index_schema": {
+    "shape": "An array of objects: { slug: string, title: string, date?: string }.",
+    "slug": "A stable identifier for the note, also its filename (entries/<slug>.json) and its deep-link anchor.",
     "date": "Optional, format YYYY.MM.DD. When present, notes render newest-first by this date; notes without a date sort to the bottom, in array order.",
-    "body": "An ordered array of items rendered in sequence. Each item is one of: (1) a plain string, rendered as a paragraph; (2) { heading: string }, rendered as a subheading; (3) { list: array }, rendered as a bullet list, where each list entry is either a plain string or { text: string, sublist: array } for a nested bullet list; (4) any string (paragraph or list-item text) may contain inline links using [label](url) markdown syntax, rendered as a real anchor tag.",
     "sort_order_of_entries": "The array itself is not guaranteed to be in display order — always compute display order from each entry's 'date' field as described above."
   },
+  "entry_schema": {
+    "url_pattern": "https://misterautomate.com/notes/entries/<slug>.json",
+    "shape": "An object: { title: string, body: array, date?: string }. title and date duplicate the index entry; body is the full content, absent from the index.",
+    "body": "An ordered array of items rendered in sequence. Each item is one of: (1) a plain string, rendered as a paragraph; (2) { heading: string }, rendered as a subheading; (3) { list: array }, rendered as a bullet list, where each list entry is either a plain string or { text: string, sublist: array } for a nested bullet list; (4) any string (paragraph or list-item text) may contain **bold** markdown and inline links using [label](url) markdown syntax, both rendered as real HTML."
+  },
+  "deep_links": "A specific note can be linked directly and will auto-expand: https://misterautomate.com/notes/#<slug>, e.g. https://misterautomate.com/notes/#your-entire-life-is-made-up-of-loops. Use this when pointing a user at one particular note rather than the whole page.",
   "author": "David Holt",
   "back_to": "https://misterautomate.com/agents/home.json"
 }

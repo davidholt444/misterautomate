@@ -1,0 +1,10 @@
+{
+  "title": "The Cost of Context",
+  "body": [
+    "Dumb AI and smart AI use the same model. The difference is context.",
+    "For a long time I wondered why my AI outputs felt generic. Then I realized I was giving it generic inputs. Not because I meant to. Because I hadn't built the structure to give it the right context automatically.",
+    "Now I have a memory system. Files that tell the AI who I am, what I'm working on, what good looks like for me, what I care about and what I don't. Every prompt loads the right context without me having to re-explain myself.",
+    "The difference between an AI that feels like a tool and one that feels like a collaborator is almost always this. Not the model. The context."
+  ],
+  "date": "2026.07.23"
+}

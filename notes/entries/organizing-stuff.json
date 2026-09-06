@@ -1,0 +1,35 @@
+{
+  "title": "Organizing Stuff",
+  "body": [
+    "Our brains get bogged down if we try to do more than one thing at a time. If you want to clean up a space, here's a step-by-step guide so you don't get overwhelmed.",
+    { "heading": "Prerequisites" },
+    { "list": [
+      "Open space for sorting required.",
+      "Garbage can.",
+      "Vacuum cleaner.",
+      "Limit the project size to what you're confident you can finish."
+    ] },
+    { "heading": "The Process" },
+    { "list": [
+      "Take everything into your sorting space.",
+      "If your sorting space is limited, pick a specific section to work on.",
+      "Discard everything that's obvious garbage.",
+      "Clean the area that is now empty.",
+      "Decide what categorizations make the most sense.",
+      { "text": "Category recommendations:", "sublist": [
+        "Used every day",
+        "Used every month",
+        "Should probably discard but don't want to",
+        "Action item (e.g. gadget needs repair)",
+        "Tools, anything you'll want to find when a need arises. Example: misc cables.",
+        "Item belongs somewhere else."
+      ] },
+      "Put everything away."
+    ] },
+    { "heading": "Notes" },
+    { "list": [
+      "Sets must stay together, think of them as one item when organizing."
+    ] }
+  ],
+  "date": "2023.09.24"
+}

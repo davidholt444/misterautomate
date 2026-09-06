@@ -640,43 +640,84 @@
       return result;
     }
 
-    fetch('notes.json')
+    function renderListItem(li) {
+      if (typeof li === 'string') return '<li>' + renderInline(li) + '</li>';
+      if (li && li.text) {
+        var sub = li.sublist ? '<ul>' + li.sublist.map(function (s) { return '<li>' + renderInline(s) + '</li>'; }).join('') + '</ul>' : '';
+        return '<li>' + renderInline(li.text) + sub + '</li>';
+      }
+      return '';
+    }
+
+    function renderBody(body) {
+      return (body || []).map(function (item) {
+        if (typeof item === 'string') return '<p>' + renderInline(item) + '</p>';
+        if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
+        if (item && item.list) return '<ul>' + item.list.map(renderListItem).join('') + '</ul>';
+        return '';
+      }).join('');
+    }
+
+    var bodyCache = {};
+
+    function loadBody(slug, container) {
+      if (bodyCache[slug]) {
+        container.innerHTML = renderBody(bodyCache[slug]);
+        return;
+      }
+      container.innerHTML = '<p>Loading…</p>';
+      fetch('entries/' + encodeURIComponent(slug) + '.json')
+        .then(function (r) { return r.json(); })
+        .then(function (note) {
+          bodyCache[slug] = note.body;
+          container.innerHTML = renderBody(note.body);
+        })
+        .catch(function () {
+          container.innerHTML = '<p>Could not load this note.</p>';
+        });
+    }
+
+    fetch('notes-index.json')
       .then(function (r) { return r.json(); })
-      .then(function (notes) {
+      .then(function (index) {
         var feed = document.getElementById('feed');
-        if (!notes.length) {
+        if (!index.length) {
           feed.innerHTML = '<p class="lead">No notes yet.</p>';
           return;
         }
-        var sorted = notes.slice().sort(function (a, b) {
+        var sorted = index.slice().sort(function (a, b) {
           if (!a.date && !b.date) return 0;
           if (!a.date) return 1;
           if (!b.date) return -1;
           return b.date.localeCompare(a.date);
         });
         feed.innerHTML = sorted.map(function (note) {
-          function renderListItem(li) {
-            if (typeof li === 'string') return '<li>' + renderInline(li) + '</li>';
-            if (li && li.text) {
-              var sub = li.sublist ? '<ul>' + li.sublist.map(function (s) { return '<li>' + renderInline(s) + '</li>'; }).join('') + '</ul>' : '';
-              return '<li>' + renderInline(li.text) + sub + '</li>';
-            }
-            return '';
-          }
-          var paras = (note.body || []).map(function (item) {
-            if (typeof item === 'string') return '<p>' + renderInline(item) + '</p>';
-            if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
-            if (item && item.list) return '<ul>' + item.list.map(renderListItem).join('') + '</ul>';
-            return '';
-          }).join('');
           var date = note.date ? '<span class="note-date">' + esc(note.date) + '</span>' : '';
           return (
-            '<details class="note">' +
+            '<details class="note" id="' + esc(note.slug) + '" data-slug="' + esc(note.slug) + '">' +
               '<summary><h2>' + esc(note.title) + '</h2><span class="summary-right">' + date + '<span class="chevron" aria-hidden="true"></span></span></summary>' +
-              '<div class="note-body">' + paras + '</div>' +
+              '<div class="note-body"></div>' +
             '</details>'
           );
         }).join('');
+
+        feed.querySelectorAll('details.note').forEach(function (details) {
+          details.addEventListener('toggle', function () {
+            if (details.open) loadBody(details.dataset.slug, details.querySelector('.note-body'));
+          });
+        });
+
+        function openFromHash() {
+          var slug = window.location.hash.slice(1);
+          if (!slug) return;
+          var target = document.getElementById(slug);
+          if (!target || !target.classList.contains('note')) return;
+          target.open = true;
+          loadBody(slug, target.querySelector('.note-body'));
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        openFromHash();
+        window.addEventListener('hashchange', openFromHash);
       })
       .catch(function () {
         document.getElementById('feed').innerHTML = '<p class="lead">Could not load notes.</p>';

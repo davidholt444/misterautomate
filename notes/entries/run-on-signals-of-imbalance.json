@@ -1,0 +1,9 @@
+{
+  "title": "Run on Signals of Imbalance",
+  "body": [
+    "What's actually the bottleneck? It depends on where things are really waiting. If the customer is waiting, that's an operational bottleneck. If operations can clearly handle more, maybe the constraint is sales. And if the business is pointed in the wrong direction entirely, it doesn't matter how hard any one team is working. You can't rerun the business under a different decision to find out, so effort alone can't tell you where the real constraint is.",
+    "What can tell you is imbalance. It works like inventory: too low and things break, too high and finance gets upset. Either extreme produces its own kind of friction, and that friction is the signal. The goal is building systems that amplify the under-represented signal instead of letting it go unnoticed until it's a crisis.",
+    "This is where AI agents earn their keep. Have one research the biggest risks to an idea ahead of time and pre-plan the pivot for each one. Once you already know what you'd do if a given risk hit, that risk stops being nearly as risky, and that's what actually opens room for bigger bets. Visibility into your real constraints, not just faster execution, is one of the biggest levers in a business."
+  ],
+  "date": "2026.08.18"
+}
