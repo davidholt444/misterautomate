@@ -336,6 +336,33 @@
       flex-shrink: 0;
     }
 
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: color 0.2s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .share-btn:hover,
+    .share-btn.is-copied {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .share-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
     .note-date {
       color: var(--muted);
       font-size: 0.78rem;
@@ -660,6 +687,44 @@
 
     var bodyCache = {};
 
+    var shareIcon = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13V3M10 3l-3 3M10 3l3 3"/><path d="M4 10v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-5"/></svg>';
+    var checkIcon = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,10 8,14 16,6"/></svg>';
+
+    function shareNote(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var btn = e.currentTarget;
+      var slug = btn.dataset.slug;
+      var title = btn.dataset.title;
+      var url = window.location.origin + window.location.pathname + '#' + slug;
+
+      function showCopied() {
+        var original = btn.innerHTML;
+        btn.innerHTML = checkIcon;
+        btn.classList.add('is-copied');
+        btn.setAttribute('aria-label', 'Link copied');
+        setTimeout(function () {
+          btn.innerHTML = original;
+          btn.classList.remove('is-copied');
+          btn.setAttribute('aria-label', 'Share this note');
+        }, 1600);
+      }
+
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showCopied).catch(function () {
+          fallbackCopy(url);
+          showCopied();
+        });
+      } else {
+        fallbackCopy(url);
+        showCopied();
+      }
+    }
+
     function loadBody(slug, container) {
       if (bodyCache[slug]) {
         container.innerHTML = renderBody(bodyCache[slug]);
@@ -693,17 +758,27 @@
         });
         feed.innerHTML = sorted.map(function (note) {
           var date = note.date ? '<span class="note-date">' + esc(note.date) + '</span>' : '';
+          var share = '<button type="button" class="share-btn" data-slug="' + esc(note.slug) + '" data-title="' + esc(note.title) + '" aria-label="Share this note">' + shareIcon + '</button>';
           return (
             '<details class="note" id="' + esc(note.slug) + '" data-slug="' + esc(note.slug) + '">' +
-              '<summary><h2>' + esc(note.title) + '</h2><span class="summary-right">' + date + '<span class="chevron" aria-hidden="true"></span></span></summary>' +
+              '<summary><h2>' + esc(note.title) + '</h2><span class="summary-right">' + date + share + '<span class="chevron" aria-hidden="true"></span></span></summary>' +
               '<div class="note-body"></div>' +
             '</details>'
           );
         }).join('');
 
+        feed.querySelectorAll('.share-btn').forEach(function (btn) {
+          btn.addEventListener('click', shareNote);
+        });
+
         feed.querySelectorAll('details.note').forEach(function (details) {
           details.addEventListener('toggle', function () {
-            if (details.open) loadBody(details.dataset.slug, details.querySelector('.note-body'));
+            if (details.open) {
+              loadBody(details.dataset.slug, details.querySelector('.note-body'));
+              try { history.replaceState(null, '', '#' + details.dataset.slug); } catch (e) {}
+            } else {
+              try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+            }
           });
         });
 
