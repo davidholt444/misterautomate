@@ -134,7 +134,7 @@
     ],
     "date": "2019.04.26"
   },
-  {
+   {
     "title": "Great Productivity Concepts to Remember",
     "body": [
       { "list": [
@@ -150,7 +150,7 @@
     "body": [
       "Our brains get bogged down if we try to do more than one thing at a time. If you want to clean up a space, here's a step-by-step guide so you don't get overwhelmed.",
       { "heading": "Prerequisites" },
-      { "list": [
+     { "list": [
         "Open space for sorting required.",
         "Garbage can.",
         "Vacuum cleaner.",
@@ -220,5 +220,14 @@
       "You can't fix that by deciding to be a different person. Identity doesn't lead, it follows. Change what you actually do, on repeat, and give it long enough. Every loop has a trajectory. Change loops, change trajectory."
     ],
     "date": "2026.06.24"
+  },
+  {
+    "title": "Playing Monopoly in Real Life",
+    "body": [
+      "Monopoly is a useful model for thinking about risk and opportunity. Buying properties creates luck surface area: the more properties you own, the more chances you have to get paid. In real life, those “properties” might be businesses, investments, skills, relationships, products, or actual real estate. Once something shows potential, adding houses is the equivalent of putting more resources behind it—hiring employees, investing more capital, expanding a business, or developing property.",
+      "But you need enough cash to survive bad rolls. If everything is invested when an unexpected expense arrives, you can be forced to sell assets at a loss or take on expensive debt. At the same time, too much cash eventually becomes a disadvantage. Once you have enough liquidity to survive reasonable losses, additional idle cash provides less protection and could instead be producing income or increasing your exposure to upside.",
+      "This works best when investments are somewhat reversible. If I put $100,000 into something that could reasonably be sold for $80,000, my downside isn’t necessarily the entire $100,000. I can deploy capital while retaining an escape route. Real life is harder than Monopoly, though, because assets aren’t guaranteed to sell when I need them. My safety shouldn’t be based on total net worth, but on how much liquidity I could actually access during bad conditions.",
+      "The strategy is simple: create opportunities, keep enough cash to survive, develop the promising opportunities, and recycle the profits into more opportunities. The goal isn’t to avoid bad rolls. It’s to build a position where bad rolls are survivable and good rolls are increasingly valuable."
+    ]
   }
 ]
