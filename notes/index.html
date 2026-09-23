@@ -436,6 +436,11 @@
       margin-top: 8px;
     }
 
+    .note-body audio {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
     .callout {
       margin-top: 56px;
       border-radius: var(--radius-xl);
@@ -682,6 +687,7 @@
         if (typeof item === 'string') return '<p>' + renderInline(item) + '</p>';
         if (item && item.heading) return '<h3>' + esc(item.heading) + '</h3>';
         if (item && item.list) return '<ul>' + item.list.map(renderListItem).join('') + '</ul>';
+        if (item && item.audio) return '<audio controls src="' + esc(item.audio) + '"></audio>';
         return '';
       }).join('');
     }
